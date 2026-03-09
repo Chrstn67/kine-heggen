@@ -1,0 +1,36 @@
+.page-header {
+  padding: 64px 0 48px;
+  background: var(--color-primary-light);
+
+  & .page-header__inner {
+    max-width: 720px;
+  }
+
+  & .page-header__label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+
+  & .page-header__title {
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--color-text);
+    margin-bottom: 16px;
+  }
+
+  & .page-header__desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-text-light);
+  }
+}
+
+@media (max-width: 600px) {
+  .page-header {
+    padding: 40px 0 32px;
+  }
+}

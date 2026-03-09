@@ -1,0 +1,107 @@
+.specialites-page {
+  padding: 64px 0 96px;
+
+  & .specialites-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  & .specialites-page__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px 28px;
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+
+  & .specialites-page__card-top {
+    margin-bottom: 24px;
+  }
+
+  & .specialites-page__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+  }
+
+  & .specialites-page__card-title {
+    font-size: 24px;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+
+  & .specialites-page__card-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-text-light);
+  }
+
+  & .specialites-page__card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  & .specialites-page__kine {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  & .specialites-page__kine-photo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  & .specialites-page__kine-name {
+    font-size: 14px;
+    color: var(--color-text-light);
+    font-weight: 500;
+  }
+
+  & .specialites-page__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: gap var(--transition);
+
+    &:hover {
+      gap: 10px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .specialites-page {
+    padding: 48px 0 64px;
+
+    & .specialites-page__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

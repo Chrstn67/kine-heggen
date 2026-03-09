@@ -1,0 +1,251 @@
+.contact-page {
+  padding: 64px 0 96px;
+
+  & .contact-page__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 50/50 sur la page */
+    gap: 32px;
+    align-items: stretch; /* Pour que les colonnes aient la même hauteur */
+  }
+
+  /* Style commun pour les deux colonnes */
+  & .contact-page__info,
+  & .contact-page__horaires-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%; /* Prend toute la hauteur disponible */
+  }
+
+  /* Cartes avec fond et bordures */
+  & .contact-page__info-card,
+  & .contact-page__horaires-card {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    height: 100%; /* S'étire pour remplir l'espace */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Titres */
+  & .contact-page__info-title {
+    font-size: 24px;
+    color: var(--color-text);
+    margin-bottom: 28px;
+    font-weight: 600;
+  }
+
+  & .contact-page__card-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--color-primary-light);
+
+    & svg {
+      color: var(--color-primary);
+    }
+  }
+
+  /* Liste des informations */
+  & .contact-page__info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  & .contact-page__info-item {
+    display: flex;
+    gap: 16px;
+
+    & div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      & strong {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 2px;
+      }
+
+      & span,
+      & a {
+        font-size: 15px;
+        color: var(--color-text-light);
+        line-height: 1.5;
+      }
+
+      & a {
+        text-decoration: none;
+        transition: color var(--transition);
+
+        &:hover {
+          color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  & .contact-page__info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  & .contact-page__complement {
+    font-size: 14px !important;
+    font-style: italic;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  /* Horaires */
+  & .contact-page__horaires {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+
+    & li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--color-border-light);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      & span:first-child {
+        color: var(--color-text-light);
+        font-weight: 500;
+      }
+
+      & span:last-child {
+        color: var(--color-text);
+        font-weight: 500;
+      }
+    }
+  }
+
+  & .contact-page__ferme {
+    color: var(--color-accent) !important;
+    font-weight: 600;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  /* Extras (Accessibilité, conventionné) */
+  & .contact-page__extras {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: auto; /* Pousse vers le bas si besoin */
+  }
+
+  & .contact-page__extra-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 12px;
+    background: var(--color-primary-light);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: center;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    & svg {
+      flex-shrink: 0;
+    }
+  }
+
+  /* Informations complémentaires dans la colonne droite */
+  & .contact-page__info-complementaire {
+    background: linear-gradient(135deg, var(--color-bg-alt) 0%, white 100%);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
+  }
+
+  & .contact-page__info-complementaire-text {
+    font-size: 15px;
+    color: var(--color-text-light);
+    margin-bottom: 12px;
+    line-height: 1.6;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    & strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    & .contact-page__grid {
+      grid-template-columns: 1fr; /* Passe en une colonne sur mobile/tablette */
+      gap: 32px;
+    }
+
+    & .contact-page__extras {
+      grid-template-columns: 1fr 1fr; /* Maintient 2 colonnes pour les extras */
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 48px 0 64px;
+
+    & .contact-page__extras {
+      grid-template-columns: 1fr; /* Passe en une colonne sur petit mobile */
+    }
+
+    & .contact-page__info-card,
+    & .contact-page__horaires-card,
+    & .contact-page__info-complementaire {
+      padding: 24px 20px;
+    }
+
+    & .contact-page__info-item {
+      flex-direction: column;
+      gap: 12px;
+
+      & div {
+        margin-left: 0;
+      }
+    }
+
+    & .contact-page__info-icon {
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
