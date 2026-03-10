@@ -1,8 +1,20 @@
-import { useParams, Link, Navigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Mail, GraduationCap, Quote, Bone, Hand, Activity, Wind, Shield, Baby } from 'lucide-react'
-import { kines } from '../data/kines.js'
-import { specialites } from '../data/specialites.js'
-import './KineDetailPage.css'
+import { useParams, Link, Navigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Mail,
+  GraduationCap,
+  Quote,
+  Bone,
+  Hand,
+  Activity,
+  Wind,
+  Shield,
+  Baby,
+} from "lucide-react";
+import { kines } from "../data/kines.js";
+import { specialites } from "../data/specialites.js";
+import "./KineDetailPage.css";
 
 const iconMap = {
   bone: Bone,
@@ -11,15 +23,15 @@ const iconMap = {
   wind: Wind,
   shield: Shield,
   baby: Baby,
-}
+};
 
 export default function KineDetailPage() {
-  const { id } = useParams()
-  const kine = kines.find((k) => k.id === id)
+  const { id } = useParams();
+  const kine = kines.find((k) => k.id === id);
 
-  if (!kine) return <Navigate to="/equipe" replace />
+  if (!kine) return <Navigate to="/equipe" replace />;
 
-  const kineSpecs = specialites.filter((s) => kine.specialites.includes(s.id))
+  const kineSpecs = specialites.filter((s) => kine.specialites.includes(s.id));
 
   return (
     <article className="kine-detail">
@@ -73,18 +85,32 @@ export default function KineDetailPage() {
               <ul className="kine-detail__formation">
                 {kine.formation.map((f, i) => (
                   <li key={i}>
-                    <span className="kine-detail__formation-dot" aria-hidden="true" />
+                    <span
+                      className="kine-detail__formation-dot"
+                      aria-hidden="true"
+                    />
                     <span>{f}</span>
                   </li>
                 ))}
               </ul>
             </section>
 
-            <section className="kine-detail__quote" aria-labelledby="approche-heading">
-              <h2 id="approche-heading" className="sr-only">Mon approche</h2>
-              <Quote size={32} className="kine-detail__quote-icon" aria-hidden="true" />
+            <section
+              className="kine-detail__quote"
+              aria-labelledby="approche-heading"
+            >
+              <h2 id="approche-heading" className="sr-only">
+                Mon approche
+              </h2>
+              <Quote
+                size={32}
+                className="kine-detail__quote-icon"
+                aria-hidden="true"
+              />
               <blockquote>{kine.approche}</blockquote>
-              <cite>— {kine.prenom} {kine.nom}</cite>
+              <cite>
+                — {kine.prenom} {kine.nom}
+              </cite>
             </section>
           </div>
 
@@ -93,27 +119,43 @@ export default function KineDetailPage() {
               <h3 className="kine-detail__sidebar-title">Spécialités</h3>
               <div className="kine-detail__specs-list">
                 {kineSpecs.map((s) => {
-                  const Icon = iconMap[s.icone] || Activity
+                  const Icon = iconMap[s.icone] || Activity;
                   return (
-                    <Link to={`/specialites/${s.id}`} key={s.id} className="kine-detail__spec-item">
-                      <div className="kine-detail__spec-icon" aria-hidden="true">
+                    <Link
+                      to={`/specialites/${s.id}`}
+                      key={s.id}
+                      className="kine-detail__spec-item"
+                    >
+                      <div
+                        className="kine-detail__spec-icon"
+                        aria-hidden="true"
+                      >
                         <Icon size={20} />
                       </div>
                       <div className="kine-detail__spec-info">
                         <strong>{s.nom}</strong>
                         <span>{s.resume}</span>
                       </div>
-                      <ArrowRight size={16} aria-hidden="true" className="kine-detail__spec-arrow" />
+                      <ArrowRight
+                        size={16}
+                        aria-hidden="true"
+                        className="kine-detail__spec-arrow"
+                      />
                     </Link>
-                  )
+                  );
                 })}
               </div>
             </div>
 
             <div className="kine-detail__contact-card">
-              <h3 className="kine-detail__sidebar-title">Prendre rendez-vous</h3>
+              <h3 className="kine-detail__sidebar-title">
+                Prendre rendez-vous
+              </h3>
               <p>Contactez-nous pour réserver une séance avec {kine.prenom}.</p>
-              <Link to="/contact" className="kine-detail__contact-btn">
+              <Link
+                to="/kine-heggen/contact"
+                className="kine-detail__contact-btn"
+              >
                 Nous contacter
               </Link>
             </div>
@@ -121,5 +163,5 @@ export default function KineDetailPage() {
         </div>
       </div>
     </article>
-  )
+  );
 }

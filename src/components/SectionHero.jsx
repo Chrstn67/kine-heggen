@@ -20,7 +20,10 @@ export default function SectionHero() {
         <p className="hero__subtitle">{cabinet.slogan}</p>
         <p className="hero__description">{cabinet.description}</p>
         <div className="hero__actions">
-          <Link to="/contact" className="hero__btn hero__btn--primary">
+          <Link
+            to="/kine-heggen/contact"
+            className="hero__btn hero__btn--primary"
+          >
             <span>Prendre rendez-vous</span>
             <ArrowRight size={18} aria-hidden="true" />
           </Link>

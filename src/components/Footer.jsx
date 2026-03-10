@@ -28,16 +28,16 @@ export default function Footer() {
             <h3 className="footer__heading">Navigation</h3>
             <ul className="footer__links">
               <li>
-                <Link to="/">Accueil</Link>
+                <Link to="/kine-heggen/">Accueil</Link>
               </li>
               <li>
-                <Link to="/specialites">Nos soins</Link>
+                <Link to="/kine-heggen/specialites">Nos soins</Link>
               </li>
               <li>
-                <Link to="/equipe">{"L'équipe"}</Link>
+                <Link to="/kine-heggen/equipe">{"L'équipe"}</Link>
               </li>
               <li>
-                <Link to="/contact">Contact</Link>
+                <Link to="/kine-heggen/contact">Contact</Link>
               </li>
             </ul>
           </div>
