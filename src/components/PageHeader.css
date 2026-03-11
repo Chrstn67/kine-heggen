@@ -1,3 +1,4 @@
+/* PageHeader.css */
 .page-header {
   padding: 64px 0 48px;
   background: var(--color-primary-light);
@@ -21,16 +22,208 @@
     color: var(--color-text);
     margin-bottom: 16px;
   }
+}
 
-  & .page-header__desc {
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--color-text-light);
+/* Preview */
+.page-header__desc {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 10px;
+}
+
+.page-header__desc-preview {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.page-header__trigger {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s;
+}
+
+.page-header__trigger:hover {
+  opacity: 0.7;
+}
+
+/* Overlay */
+.page-header__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.page-header__overlay.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Drawer — desktop : bande droite */
+.page-header__drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(420px, 45vw);
+  background: var(--color-bg, #fff);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 101;
+  overflow-y: auto;
+}
+
+.page-header__drawer.is-open {
+  transform: translateX(0);
+}
+
+.page-header__drawer-inner {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 36px;
+  min-height: 100%;
+}
+
+/* Sticky header */
+.page-header__drawer-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--color-border, #eee);
+  z-index: 1;
+}
+
+.page-header__drawer-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary);
+}
+
+/* Bouton croix */
+.page-header__drawer-close {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  & span {
+    display: block;
+    height: 1.5px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transform-origin: center;
+    transition: background 0.2s;
+
+    &:nth-child(1) {
+      width: 20px;
+      transform: translateY(3.25px) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      width: 20px;
+      transform: translateY(-3.25px) rotate(-45deg);
+    }
+  }
+
+  &:hover span {
+    background: var(--color-primary);
   }
 }
 
+.page-header__drawer-body {
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-light);
+
+  & p {
+    margin: 0;
+  }
+
+  & p + p {
+    margin-top: 1.2em;
+  }
+}
+
+.page-header__drawer-bottom-close {
+  margin-top: 40px;
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s;
+}
+
+.page-header__drawer-bottom-close:hover {
+  opacity: 0.7;
+}
+
+/* Mobile : sheet depuis le bas */
 @media (max-width: 600px) {
   .page-header {
     padding: 40px 0 32px;
+  }
+
+  .page-header__drawer {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-height: 75dvh;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .page-header__drawer.is-open {
+    transform: translateY(0);
+  }
+
+  .page-header__drawer-inner {
+    padding: 28px 24px 36px;
+  }
+
+  .page-header__drawer-header {
+    top: 0;
   }
 }

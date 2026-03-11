@@ -27,7 +27,7 @@ export const specialites = [
   },
 
   // {
-  //   id: 1,
+  //   id: 2,
   //   nom: "",
   //   slug: "",
   //   icone: "",
