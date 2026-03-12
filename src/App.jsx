@@ -7,6 +7,15 @@ import EquipePage from "./pages/EquipePage.jsx";
 import KineDetailPage from "./pages/KineDetailPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 
+/*
+  ℹ️  HashRouter est déclaré dans main.jsx — App.jsx ne change pas.
+     Les routes restent identiques : React Router les résout
+     sur la partie de l'URL après le #.
+     Ex : /#/kine-heggen/equipe/johan-heggen
+           → hash ignoré par le serveur
+           → React Router lit /kine-heggen/equipe/johan-heggen
+           → affiche KineDetailPage
+*/
 export default function App() {
   return (
     <Routes>
@@ -19,9 +28,8 @@ export default function App() {
         />
         <Route path="/kine-heggen/equipe" element={<EquipePage />} />
         {/*
-          ✅ :slug au lieu de :id — le paramètre reçoit désormais
-             "justine-hoffmann-heggen" ou "johan-heggen".
-             KineDetailPage recherche par kine.slug au lieu de kine.id.
+          ✅ :slug — paramètre textuel SEO-friendly :
+             "justine-hoffmann-heggen" ou "johan-heggen"
         */}
         <Route path="/kine-heggen/equipe/:slug" element={<KineDetailPage />} />
         <Route path="/kine-heggen/contact" element={<ContactPage />} />
