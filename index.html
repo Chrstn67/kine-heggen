@@ -1,13 +1,134 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/kine-heggen/vite.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>kine-heggen</title>
-    <script type="module" crossorigin src="/kine-heggen/assets/index-DlxnxXrp.js"></script>
-    <link rel="stylesheet" crossorigin href="/kine-heggen/assets/index-Dud-aVYU.css">
+
+    <!-- ═══════════════════════════════════════════════════════
+         FAVICON & ICÔNES
+         Remplacer /vite.svg par la vraie icône du cabinet.
+         Générer les tailles sur https://realfavicongenerator.net
+    ════════════════════════════════════════════════════════════ -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#2D6A4F" />
+
+    <!-- ═══════════════════════════════════════════════════════
+         SEO PRIMAIRE
+    ════════════════════════════════════════════════════════════ -->
+    <title>Cabinet de Kinésithérapie Chez JJ — Boersch, Alsace</title>
+    <meta
+      name="description"
+      content="Cabinet de kinésithérapie conventionné à Boersch (67). Justine et Johan, masseurs-kinésithérapeutes diplômés d'État, prennent en charge vos douleurs, rééducation et bien-être. Accessible PMR. Prise de rendez-vous rapide."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.kine-heggen.fr/kine-heggen/" />
+
+    <!-- ═══════════════════════════════════════════════════════
+         OPEN GRAPH (Facebook, LinkedIn, WhatsApp…)
+    ════════════════════════════════════════════════════════════ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Cabinet Chez JJ" />
+    <meta
+      property="og:title"
+      content="Cabinet de Kinésithérapie Chez JJ — Boersch, Alsace"
+    />
+    <meta
+      property="og:description"
+      content="Cabinet de kinésithérapie conventionné à Boersch (67). Masseurs-kinésithérapeutes diplômés d'État. Accessible PMR. Prenez rendez-vous."
+    />
+    <meta property="og:url" content="https://www.kine-heggen.fr/kine-heggen/" />
+    <meta
+      property="og:image"
+      content="https://www.kine-heggen.fr/images/og-cabinet.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Cabinet de kinésithérapie Chez JJ à Boersch"
+    />
+
+    <!-- ═══════════════════════════════════════════════════════
+         TWITTER / X CARD
+    ════════════════════════════════════════════════════════════ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Cabinet de Kinésithérapie Chez JJ — Boersch, Alsace"
+    />
+    <meta
+      name="twitter:description"
+      content="Kinésithérapie conventionnée à Boersch (67). Masseurs-kinésithérapeutes diplômés d'État. Accessible PMR."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.kine-heggen.fr/images/og-cabinet.jpg"
+    />
+
+    <!-- ═══════════════════════════════════════════════════════
+         SCHEMA.ORG — LocalBusiness (données structurées)
+         Aide Google à afficher les infos du cabinet directement
+         dans les résultats (Knowledge Panel, rich snippets).
+         ⚠️  Mettre à jour : adresse, téléphone, email, horaires.
+    ════════════════════════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "Cabinet de Kinésithérapie Chez JJ",
+      "url": "https://www.kine-heggen.fr/kine-heggen/",
+      "logo": "https://www.kine-heggen.fr/Logo.jpg",
+      "image": "https://www.kine-heggen.fr/images/og-cabinet.jpg",
+      "description": "Cabinet de kinésithérapie conventionné à Boersch (Bas-Rhin, Alsace). Masseurs-kinésithérapeutes diplômés d'État. Accessible PMR.",
+      "telephone": "+33XXXXXXXXX",
+      "email": "contact@kine-heggen.fr",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "X rue XXXXX",
+        "addressLocality": "Boersch",
+        "postalCode": "67530",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 48.4567,
+        "longitude": 7.4567
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "19:00"
+        }
+      ],
+      "paymentAccepted": "Cash, Cheque, Credit Card",
+      "currenciesAccepted": "EUR",
+      "priceRange": "€€",
+      "medicalSpecialty": "PhysicalTherapy",
+      "isAcceptingNewPatients": true,
+      "hasMap": "https://maps.google.com/?q=Boersch+67530"
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════
+         POLICES GOOGLE FONTS
+         preconnect réduit la latence DNS+TLS avant le chargement.
+    ════════════════════════════════════════════════════════════ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="module" crossorigin src="/kine-heggen/assets/index-DtIhEoxd.js"></script>
+    <link rel="stylesheet" crossorigin href="/kine-heggen/assets/index-BOCN_uxI.css">
   </head>
   <body>
     <div id="root"></div>
