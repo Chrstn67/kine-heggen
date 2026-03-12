@@ -227,3 +227,17 @@
     top: 0;
   }
 }
+
+/* ✅ Resets for semantic elements in PageHeader */
+
+/* <header> replacing <div class="page-header"> — no default styles to reset */
+
+/* <p> replacing <span> for .page-header__label */
+.page-header__label {
+  margin: 0; /* reset <p> default margin */
+}
+
+/* <p> replacing <span> for drawer label */
+.page-header__drawer-label {
+  margin: 0; /* reset <p> default margin */
+}

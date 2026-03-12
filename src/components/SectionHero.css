@@ -35,6 +35,7 @@
   }
 
   & .hero__badge {
+    margin-top: 0; /* reset <p> default margin */
     display: inline-block;
     padding: 6px 16px;
     background: rgba(255, 255, 255, 0.15);
@@ -55,6 +56,7 @@
   }
 
   & .hero__subtitle {
+    margin-top: 0; /* reset <p> default margin */
     font-family: var(--font-heading);
     font-size: clamp(18px, 2.5vw, 24px);
     color: var(--color-accent);

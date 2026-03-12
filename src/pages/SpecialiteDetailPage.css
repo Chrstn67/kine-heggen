@@ -1,5 +1,4 @@
 .spec-detail {
-
   & .spec-detail__top {
     padding: 48px 0 56px;
     background: var(--color-primary-light);
@@ -104,6 +103,9 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    list-style: none; /* reset <ul> */
+    padding: 0;
+    margin: 0;
   }
 
   & .spec-detail__bienfait {
@@ -234,6 +236,9 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    list-style: none; /* reset <ul> */
+    padding: 0;
+    margin: 0;
   }
 
   & .spec-detail__related-card {
@@ -242,7 +247,9 @@
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-lg);
     text-decoration: none;
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition);
 
     &:hover {
       transform: translateY(-3px);

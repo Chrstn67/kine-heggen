@@ -46,13 +46,6 @@
     }
   }
 
-  & .cta__infos {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    flex-shrink: 0;
-  }
-
   & .cta__info-card {
     display: flex;
     align-items: flex-start;
@@ -93,19 +86,59 @@
     & .cta__inner {
       flex-direction: column;
       gap: 40px;
+
+      /* ✅ Resets for new semantic elements */
+
+      & .cta__info-address {
+        font-style: normal; /* reset <address> default italic */
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        & strong {
+          font-size: 15px;
+          font-weight: 600;
+          color: var(--color-text);
+        }
+
+        & span {
+          font-size: 14px;
+          color: var(--color-text-light);
+        }
+      }
+
+      & .cta__info-dl {
+        margin: 0; /* reset <dl> default margin */
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        & dt {
+          font-size: 15px;
+          font-weight: 600;
+          color: var(--color-text);
+        }
+
+        & dd {
+          font-size: 14px;
+          color: var(--color-text-light);
+          margin: 0; /* reset <dd> default margin-left */
+        }
+      }
+
+      & .cta__infos {
+        /* reset <aside> : no default styles, but we keep existing layout */
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        flex-shrink: 0;
+      }
+
       text-align: center;
     }
 
     & .cta__description {
       max-width: none;
-    }
-
-    & .cta__infos {
-      width: 100%;
-
-      & .cta__info-card {
-        min-width: 0;
-      }
     }
   }
 }

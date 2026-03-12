@@ -54,6 +54,7 @@
     font-size: 15px;
     font-weight: 500;
     color: var(--color-primary);
+    margin: 0; /* reset <p> default margin */
   }
 
   & .equipe-page__bio {
@@ -76,6 +77,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    list-style: none; /* reset <ul> */
+    padding: 0;
+    margin: 0;
   }
 
   & .equipe-page__tag {
@@ -87,7 +91,9 @@
     font-weight: 500;
     border-radius: var(--radius-full);
     text-decoration: none;
-    transition: background var(--transition), color var(--transition);
+    transition:
+      background var(--transition),
+      color var(--transition);
 
     &:hover {
       background: var(--color-primary);

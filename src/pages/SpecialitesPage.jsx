@@ -36,75 +36,115 @@ export default function SpecialitesPage() {
           "Au fil des années, nous continuons à nous former et à nous perfectionner.",
         ]}
       />
-      <section className="specialites-page" aria-label="Liste des spécialités">
+
+      {/*
+        ✅ aria-labelledby sur un h2 sr-only plutôt qu'aria-label inline :
+           plus robuste, indexable par les crawlers comme titre de section.
+      */}
+      <section
+        className="specialites-page"
+        aria-labelledby="specialites-list-heading"
+      >
+        <h2 id="specialites-list-heading" className="sr-only">
+          Liste des spécialités
+        </h2>
         <div className="specialites-page__inner container">
-          <div className="specialites-page__grid">
+          {/*
+            ✅ <ul>/<li> au lieu de <div> pour la grille :
+               liste d'items homogènes → sémantique de liste.
+               Les <article> restent dans les <li>.
+          */}
+          <ul className="specialites-page__grid">
             {specialites.map((spec) => {
               const Icon = iconMap[spec.icone] || Activity;
-              // Récupérer tous les kinés pour cette spécialité
               const kineIds = Array.isArray(spec.kineIds)
                 ? spec.kineIds
                 : [spec.kineIds];
               const kinesList = kines.filter((k) => kineIds.includes(k.id));
 
               return (
-                <article key={spec.id} className="specialites-page__card">
-                  <div className="specialites-page__card-top">
-                    <div className="specialites-page__icon" aria-hidden="true">
-                      <Icon size={28} />
-                    </div>
-                    <h2 className="specialites-page__card-title">{spec.nom}</h2>
-                    <p className="specialites-page__card-desc">{spec.resume}</p>
-                  </div>
-                  <div className="specialites-page__card-bottom">
-                    {kinesList.length > 0 && (
-                      <div className="specialites-page__kine">
-                        {kinesList.length === 1 ? (
-                          // Un seul praticien
-                          <>
-                            <img
-                              src={kinesList[0].photo}
-                              alt={`${kinesList[0].prenom} ${kinesList[0].nom}`}
-                              className="specialites-page__kine-photo"
-                              loading="lazy"
-                            />
-                            <span className="specialites-page__kine-name">
-                              {kinesList[0].prenom}
-                            </span>
-                          </>
-                        ) : (
-                          // Plusieurs praticiens
-                          <div className="specialites-page__kines-multiple">
-                            <div className="specialites-page__kine-photos">
-                              {kinesList.map((kine) => (
-                                <img
-                                  key={kine.id}
-                                  src={kine.photo}
-                                  alt={`${kine.prenom} ${kine.nom}`}
-                                  className="specialites-page__kine-photo-multi"
-                                  loading="lazy"
-                                />
-                              ))}
-                            </div>
-                            <span className="specialites-page__kine-name">
-                              {kinesList.map((k) => k.prenom).join(" & ")}
-                            </span>
-                          </div>
-                        )}
+                <li key={spec.id}>
+                  <article className="specialites-page__card">
+                    <div className="specialites-page__card-top">
+                      <div
+                        className="specialites-page__icon"
+                        aria-hidden="true"
+                      >
+                        <Icon size={28} aria-hidden="true" />
                       </div>
-                    )}
-                    <Link
-                      to={`/kine-heggen/specialites/${spec.slug}`}
-                      className="specialites-page__link"
-                    >
-                      <span>En savoir plus</span>
-                      <ArrowRight size={16} aria-hidden="true" />
-                    </Link>
-                  </div>
-                </article>
+                      {/*
+                        ✅ h3 au lieu de h2 : on est sous le h2 sr-only
+                           "Liste des spécialités" → hiérarchie correcte.
+                           (PageHeader a le h1, la section a le h2 sr-only,
+                            chaque card a un h3)
+                      */}
+                      <h3 className="specialites-page__card-title">
+                        {spec.nom}
+                      </h3>
+                      <p className="specialites-page__card-desc">
+                        {spec.resume}
+                      </p>
+                    </div>
+
+                    <div className="specialites-page__card-bottom">
+                      {kinesList.length > 0 && (
+                        <div
+                          className="specialites-page__kine"
+                          aria-label="Praticien(s)"
+                        >
+                          {kinesList.length === 1 ? (
+                            <>
+                              <img
+                                src={kinesList[0].photo}
+                                alt={`${kinesList[0].prenom} ${kinesList[0].nom}`}
+                                className="specialites-page__kine-photo"
+                                loading="lazy"
+                              />
+                              <span className="specialites-page__kine-name">
+                                {kinesList[0].prenom}
+                              </span>
+                            </>
+                          ) : (
+                            <div className="specialites-page__kines-multiple">
+                              <div className="specialites-page__kine-photos">
+                                {kinesList.map((kine) => (
+                                  <img
+                                    key={kine.id}
+                                    src={kine.photo}
+                                    alt={`${kine.prenom} ${kine.nom}`}
+                                    className="specialites-page__kine-photo-multi"
+                                    loading="lazy"
+                                  />
+                                ))}
+                              </div>
+                              <span className="specialites-page__kine-name">
+                                {kinesList.map((k) => k.prenom).join(" & ")}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/*
+                        ✅ aria-label unique sur chaque lien "En savoir plus" :
+                           sans lui, les AT lisent N fois "En savoir plus"
+                           sans contexte — illisible pour la navigation
+                           par liens (touche Tab / liste de liens).
+                      */}
+                      <Link
+                        to={`/kine-heggen/specialites/${spec.slug}`}
+                        className="specialites-page__link"
+                        aria-label={`En savoir plus sur ${spec.nom}`}
+                      >
+                        <span aria-hidden="true">En savoir plus</span>
+                        <ArrowRight size={16} aria-hidden="true" />
+                      </Link>
+                    </div>
+                  </article>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </section>
     </>

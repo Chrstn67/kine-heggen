@@ -1,5 +1,4 @@
 .kine-detail {
-
   & .kine-detail__top {
     padding: 48px 0 56px;
     background: var(--color-primary-light);
@@ -128,6 +127,8 @@
     flex-direction: column;
     gap: 16px;
     padding-left: 0;
+    list-style: none; /* reset <ol> default */
+    margin: 0;
 
     & li {
       display: flex;
@@ -149,6 +150,7 @@
   }
 
   & .kine-detail__quote {
+    margin: 0; /* reset <figure> default margin: 1em 40px */
     padding: 36px;
     background: var(--color-accent-light);
     border-radius: var(--radius-lg);
@@ -164,7 +166,7 @@
       font-size: 20px;
       line-height: 1.6;
       color: var(--color-text);
-      margin-bottom: 12px;
+      margin: 0 0 12px 0; /* reset <blockquote> default margin */
     }
 
     & cite {
@@ -206,6 +208,9 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    list-style: none; /* reset <ul> */
+    padding: 0;
+    margin: 0;
   }
 
   & .kine-detail__spec-item {
@@ -216,7 +221,9 @@
     background: var(--color-bg);
     border-radius: var(--radius-md);
     text-decoration: none;
-    transition: background var(--transition), transform var(--transition);
+    transition:
+      background var(--transition),
+      transform var(--transition);
 
     &:hover {
       background: var(--color-primary-light);

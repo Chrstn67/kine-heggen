@@ -34,8 +34,14 @@ export default function KineDetailPage() {
   const kineSpecs = specialites.filter((s) => kine.specialites.includes(s.id));
 
   return (
+    // ✅ <article> correct pour une fiche personne — contenu autonome et auto-descriptif
     <article className="kine-detail">
-      <div className="kine-detail__top">
+      {/*
+        ✅ <header> sémantique pour le bandeau héro de la fiche :
+           contient le lien retour + photo + nom + titre + email.
+           <header> dans un <article> est valide et correct.
+      */}
+      <header className="kine-detail__top">
         <div className="kine-detail__top-inner container">
           <Link to="/equipe" className="kine-detail__back">
             <ArrowLeft size={18} aria-hidden="true" />
@@ -46,26 +52,33 @@ export default function KineDetailPage() {
             <div className="kine-detail__photo">
               <img
                 src={kine.photo}
-                alt={`${kine.prenom} ${kine.nom}, ${kine.titre}`}
+                alt={`Photo de ${kine.prenom} ${kine.nom}, ${kine.titre}`}
               />
             </div>
             <div className="kine-detail__hero-info">
               <h1 className="kine-detail__name">
                 {kine.prenom} {kine.nom}
               </h1>
+              {/*
+                ✅ <p> pour le titre professionnel — contenu paragraphe, pas un titre
+              */}
               <p className="kine-detail__titre">{kine.titre}</p>
               <p className="kine-detail__bio-courte">{kine.bioCourte}</p>
+              {/*
+                ✅ aria-label explicite sur le lien mailto
+              */}
               <a
                 href={`mailto:${kine.email}`}
                 className="kine-detail__email-btn"
+                aria-label={`Envoyer un e-mail à ${kine.prenom} ${kine.nom} : ${kine.email}`}
               >
                 <Mail size={16} aria-hidden="true" />
-                <span>{kine.email}</span>
+                <span aria-hidden="true">{kine.email}</span>
               </a>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
       <div className="kine-detail__body container">
         <div className="kine-detail__grid">
@@ -82,7 +95,12 @@ export default function KineDetailPage() {
                 <GraduationCap size={22} aria-hidden="true" />
                 <span>Formation</span>
               </h2>
-              <ul className="kine-detail__formation">
+              {/*
+                ✅ <ol> au lieu de <ul> pour la formation :
+                   une liste de diplômes/étapes est naturellement ordonnée
+                   chronologiquement — <ol> est sémantiquement plus précis.
+              */}
+              <ol className="kine-detail__formation">
                 {kine.formation.map((f, i) => (
                   <li key={i}>
                     <span
@@ -92,63 +110,96 @@ export default function KineDetailPage() {
                     <span>{f}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
             </section>
 
-            <section
+            {/*
+              ✅ <figure> pour encapsuler la blockquote + cite :
+                 <figure> est sémantiquement conçu pour ce pattern.
+                 Il remplace avantageusement le <section> qui était
+                 utilisé ici juste pour le style.
+            */}
+            <figure
               className="kine-detail__quote"
-              aria-labelledby="approche-heading"
+              aria-label={`Citation de ${kine.prenom} ${kine.nom}`}
             >
-              <h2 id="approche-heading" className="sr-only">
-                Mon approche
-              </h2>
               <Quote
                 size={32}
                 className="kine-detail__quote-icon"
                 aria-hidden="true"
               />
-              <blockquote>{kine.approche}</blockquote>
-              <cite>
-                — {kine.prenom} {kine.nom}
-              </cite>
-            </section>
+              <blockquote className="kine-detail__quote-text">
+                <p>{kine.approche}</p>
+              </blockquote>
+              {/*
+                ✅ <figcaption> + <cite> : pattern HTML5 recommandé
+                   pour les citations avec attribution.
+                   <cite> doit entourer le nom de la source.
+              */}
+              <figcaption>
+                <cite>
+                  — {kine.prenom} {kine.nom}
+                </cite>
+              </figcaption>
+            </figure>
           </div>
 
+          {/* ✅ <aside> déjà correct — sidebar = contenu complémentaire */}
           <aside className="kine-detail__sidebar">
             <div className="kine-detail__specs-card">
               <h3 className="kine-detail__sidebar-title">Spécialités</h3>
-              <div className="kine-detail__specs-list">
+              {/*
+                ✅ <ul>/<li> pour la liste des spécialités :
+                   remplace <div class="kine-detail__specs-list">
+              */}
+              <ul className="kine-detail__specs-list">
                 {kineSpecs.map((s) => {
                   const Icon = iconMap[s.icone] || Activity;
                   return (
-                    <Link
-                      to={`/specialites/${s.id}`}
-                      key={s.id}
-                      className="kine-detail__spec-item"
-                    >
-                      <div
-                        className="kine-detail__spec-icon"
-                        aria-hidden="true"
+                    <li key={s.id}>
+                      {/*
+                        ✅ aria-label sur chaque lien :
+                           sans lui, le texte accessible serait
+                           nom + résumé + flèche — trop verbeux.
+                      */}
+                      <Link
+                        to={`/specialites/${s.id}`}
+                        className="kine-detail__spec-item"
+                        aria-label={`En savoir plus sur ${s.nom}`}
                       >
-                        <Icon size={20} />
-                      </div>
-                      <div className="kine-detail__spec-info">
-                        <strong>{s.nom}</strong>
-                        <span>{s.resume}</span>
-                      </div>
-                      <ArrowRight
-                        size={16}
-                        aria-hidden="true"
-                        className="kine-detail__spec-arrow"
-                      />
-                    </Link>
+                        <div
+                          className="kine-detail__spec-icon"
+                          aria-hidden="true"
+                        >
+                          <Icon size={20} aria-hidden="true" />
+                        </div>
+                        <div className="kine-detail__spec-info">
+                          <strong>{s.nom}</strong>
+                          <span aria-hidden="true">{s.resume}</span>
+                        </div>
+                        <ArrowRight
+                          size={16}
+                          aria-hidden="true"
+                          className="kine-detail__spec-arrow"
+                        />
+                      </Link>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </div>
 
-            <div className="kine-detail__contact-card">
-              <h3 className="kine-detail__sidebar-title">
+            {/*
+              ✅ <aside> imbriqué remplacé par une <section> :
+                 on est déjà dans un <aside> parent — deux <aside>
+                 imbriqués est un anti-pattern. Une <section> avec
+                 son titre h3 est plus propre.
+            */}
+            <section
+              className="kine-detail__contact-card"
+              aria-labelledby="rdv-heading"
+            >
+              <h3 id="rdv-heading" className="kine-detail__sidebar-title">
                 Prendre rendez-vous
               </h3>
               <p>Contactez-nous pour réserver une séance avec {kine.prenom}.</p>
@@ -158,7 +209,7 @@ export default function KineDetailPage() {
               >
                 Nous contacter
               </Link>
-            </div>
+            </section>
           </aside>
         </div>
       </div>

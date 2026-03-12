@@ -59,6 +59,7 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
+    font-style: normal; /* reset <address> default italic */
   }
 
   & .contact-page__info-item {
@@ -159,7 +160,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-top: auto; /* Pousse vers le bas si besoin */
+    margin-top: auto;
+    list-style: none; /* reset <ul> */
+    padding: 0;
+    margin: 0;
+    margin-top: auto;
   }
 
   & .contact-page__extra-item {

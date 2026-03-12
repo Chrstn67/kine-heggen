@@ -5,6 +5,7 @@ import "./PageHeader.css";
 export default function PageHeader({ label, title, description }) {
   const [open, setOpen] = useState(false);
   const drawerRef = useRef(null);
+  const triggerRef = useRef(null);
 
   const texts = Array.isArray(description)
     ? description
@@ -17,7 +18,11 @@ export default function PageHeader({ label, title, description }) {
   useEffect(() => {
     if (!open) return;
     const handleKey = (e) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        // ✅ Retour du focus sur le bouton déclencheur à la fermeture
+        triggerRef.current?.focus();
+      }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
@@ -30,10 +35,26 @@ export default function PageHeader({ label, title, description }) {
     };
   }, [open]);
 
+  // ✅ Focus automatique sur le drawer à l'ouverture
+  useEffect(() => {
+    if (open && drawerRef.current) {
+      drawerRef.current.focus();
+    }
+  }, [open]);
+
   return (
-    <div className="page-header">
+    /*
+      ✅ <header> au lieu de <div> :
+         PageHeader est systématiquement le bandeau titre d'une page —
+         <header> dans un <main> ou une <section> est sémantiquement
+         correct et aide les crawlers à identifier le titre de page.
+    */
+    <header className="page-header">
       <div className="page-header__inner container">
-        {label && <span className="page-header__label">{label}</span>}
+        {/*
+          ✅ <p> au lieu de <span> block pour le label de catégorie
+        */}
+        {label && <p className="page-header__label">{label}</p>}
         <h1 className="page-header__title">{title}</h1>
 
         {texts.length > 0 && (
@@ -41,8 +62,16 @@ export default function PageHeader({ label, title, description }) {
             <p className="page-header__desc-preview">{preview}</p>
             {isLong && (
               <button
+                ref={triggerRef}
                 className="page-header__trigger"
                 onClick={() => setOpen(true)}
+                /*
+                  ✅ aria-expanded + aria-controls :
+                     indique aux AT l'état du drawer et le lie
+                     explicitement à son contenu.
+                */
+                aria-expanded={open}
+                aria-controls="page-header-drawer"
               >
                 En savoir plus
               </button>
@@ -56,24 +85,49 @@ export default function PageHeader({ label, title, description }) {
           <div
             className={`page-header__overlay ${open ? "is-visible" : ""}`}
             onClick={() => setOpen(false)}
+            aria-hidden="true"
           />
+          {/*
+            ✅ role="dialog" + aria-modal="true" :
+               indique aux AT que c'est une fenêtre modale.
+               Sans ça, les lecteurs d'écran continuent de lire
+               le contenu derrière le drawer.
+            ✅ aria-labelledby pointe sur le label du drawer
+               pour donner un nom accessible à la dialog.
+            ✅ tabIndex="-1" permet le focus programmatique
+               (useEffect ci-dessus) sans rendre le div tabulable.
+          */}
           <aside
+            id="page-header-drawer"
             ref={drawerRef}
             className={`page-header__drawer ${open ? "is-open" : ""}`}
-            aria-label="Description complète"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="drawer-label"
+            aria-hidden={!open}
+            tabIndex="-1"
           >
             <div className="page-header__drawer-inner">
               <div className="page-header__drawer-header">
                 {label && (
-                  <span className="page-header__drawer-label">{label}</span>
+                  /*
+                    ✅ id="drawer-label" : cible de aria-labelledby
+                       sur le dialog — donne son nom accessible à la modal.
+                  */
+                  <p id="drawer-label" className="page-header__drawer-label">
+                    {label}
+                  </p>
                 )}
                 <button
                   className="page-header__drawer-close"
-                  onClick={() => setOpen(false)}
-                  aria-label="Fermer"
+                  onClick={() => {
+                    setOpen(false);
+                    triggerRef.current?.focus();
+                  }}
+                  aria-label="Fermer la description complète"
                 >
-                  <span />
-                  <span />
+                  <span aria-hidden="true" />
+                  <span aria-hidden="true" />
                 </button>
               </div>
               <div className="page-header__drawer-body">
@@ -81,9 +135,17 @@ export default function PageHeader({ label, title, description }) {
                   <p key={i}>{text}</p>
                 ))}
               </div>
+              {/*
+                ✅ aria-label explicite sur le bouton de fermeture bas :
+                   "Fermer" seul est ambigu hors contexte pour les AT.
+              */}
               <button
                 className="page-header__drawer-bottom-close"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  triggerRef.current?.focus();
+                }}
+                aria-label="Fermer la description complète"
               >
                 Fermer
               </button>
@@ -91,6 +153,6 @@ export default function PageHeader({ label, title, description }) {
           </aside>
         </>
       )}
-    </div>
+    </header>
   );
 }

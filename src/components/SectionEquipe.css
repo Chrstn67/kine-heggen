@@ -3,11 +3,13 @@
   background: var(--color-primary-light);
 
   & .home-equipe__header {
+    /* <header> has no default styles to reset */
     text-align: center;
     margin-bottom: 56px;
   }
 
   & .home-equipe__label {
+    margin: 0; /* reset <p> default margin */
     display: inline-block;
     font-size: 13px;
     font-weight: 600;
@@ -23,6 +25,9 @@
   }
 
   & .home-equipe__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* reset <ul> defaults */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 32px;
@@ -34,7 +39,9 @@
     border-radius: var(--radius-lg);
     overflow: hidden;
     text-decoration: none;
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition);
 
     &:hover {
       transform: translateY(-4px);
@@ -71,6 +78,7 @@
   }
 
   & .home-equipe__titre {
+    margin-top: 0; /* reset <p> top margin */
     font-size: 14px;
     font-weight: 500;
     color: var(--color-primary);
@@ -92,13 +100,18 @@
     font-size: 14px;
     font-weight: 600;
     color: var(--color-text-light);
-    transition: color var(--transition), gap var(--transition);
+    transition:
+      color var(--transition),
+      gap var(--transition);
   }
 }
 
 @media (max-width: 900px) {
   .home-equipe {
     & .home-equipe__grid {
+      list-style: none;
+      padding: 0;
+      margin: 0; /* reset <ul> defaults */
       grid-template-columns: 1fr;
     }
   }

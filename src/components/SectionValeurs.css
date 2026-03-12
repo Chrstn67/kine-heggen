@@ -3,11 +3,13 @@
   background: var(--color-bg-alt);
 
   & .valeurs__header {
+    /* <header> : no default styles to reset */
     text-align: center;
     margin-bottom: 56px;
   }
 
   & .valeurs__label {
+    margin: 0; /* reset <p> default margin */
     display: inline-block;
     font-size: 13px;
     font-weight: 600;
@@ -23,6 +25,9 @@
   }
 
   & .valeurs__grid {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* reset <ul> defaults */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
@@ -33,7 +38,9 @@
     background: var(--color-bg);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-lg);
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition);
 
     &:hover {
       transform: translateY(-4px);
@@ -71,6 +78,9 @@
     padding: 64px 0;
 
     & .valeurs__grid {
+      list-style: none;
+      padding: 0;
+      margin: 0; /* reset <ul> defaults */
       grid-template-columns: 1fr;
       gap: 20px;
     }

@@ -14,15 +14,26 @@ export default function EquipePage() {
         description={[
           "Après une première année commune aux études de santé (PACES), obligatoire pour intégrer une école de kinésithérapie, nous poursuivons notre formation à la rentrée 2013 : Justine à Strasbourg et Johan à Mulhouse.",
           "Durant trois années de formation, nous réalisons de nombreux stages, aussi bien en cabinet libéral que dans différents services hospitaliers : cardio-respiratoire, neurologie, traumatologie, pédiatrie, entre autres.",
-          "Nous obtenons notre diplôme d’État de masseur-kinésithérapeute en juin 2016.",
-          "Nous débutons notre activité professionnelle en juillet 2016. Nous exerçons d’abord en Alsace, puis dans plusieurs régions de France : Alpes-Maritimes, Drôme, Gironde, Loire-Atlantique, Nord, ainsi qu’en Guadeloupe et sur l’île de La Réunion.",
+          "Nous obtenons notre diplôme d'État de masseur-kinésithérapeute en juin 2016.",
+          "Nous débutons notre activité professionnelle en juillet 2016. Nous exerçons d'abord en Alsace, puis dans plusieurs régions de France : Alpes-Maritimes, Drôme, Gironde, Loire-Atlantique, Nord, ainsi qu'en Guadeloupe et sur l'île de La Réunion.",
           "En 2019, après un dernier remplacement en Provence, nous choisissons de revenir en Alsace afin de nous y installer durablement.",
-          "Justine s’installe comme assistante-collaboratrice à Soultz-les-Bains, où elle exercera pendant six ans.",
-          "De son côté, Johan exerce également comme assistant-collaborateur, d’abord à Duppigheim puis à Krautergersheim, durant trois années dans chacun de ces cabinets.",
-          "En 2023, nous visitons l’ancien bâtiment du Crédit Agricole du village de Boersch, qui deviendra, un an plus tard, notre cabinet.",
+          "Justine s'installe comme assistante-collaboratrice à Soultz-les-Bains, où elle exercera pendant six ans.",
+          "De son côté, Johan exerce également comme assistant-collaborateur, d'abord à Duppigheim puis à Krautergersheim, durant trois années dans chacun de ces cabinets.",
+          "En 2023, nous visitons l'ancien bâtiment du Crédit Agricole du village de Boersch, qui deviendra, un an plus tard, notre cabinet.",
         ]}
       />
-      <section className="equipe-page" aria-label="Liste des praticiens">
+
+      {/*
+        ✅ aria-labelledby="equipe-page-heading" plutôt qu'aria-label :
+           le h1 dans PageHeader labellise déjà la page. On crée un h2
+           visually-hidden pour labelliser cette section spécifique.
+           Alternativement, on retire aria-label car PageHeader fournit
+           déjà le contexte sémantique via le <header> + h1.
+      */}
+      <section className="equipe-page" aria-labelledby="equipe-list-heading">
+        <h2 id="equipe-list-heading" className="sr-only">
+          Liste des praticiens
+        </h2>
         <div className="equipe-page__inner container">
           {kines.map((kine) => {
             const kineSpecs = specialites.filter((s) =>
@@ -33,48 +44,68 @@ export default function EquipePage() {
                 <div className="equipe-page__photo-col">
                   <img
                     src={kine.photo}
-                    alt={`${kine.prenom} ${kine.nom}, ${kine.titre}`}
+                    alt={`Photo de ${kine.prenom} ${kine.nom}`}
                     loading="lazy"
                   />
                 </div>
                 <div className="equipe-page__info-col">
-                  <div className="equipe-page__header">
+                  {/*
+                    ✅ <header> sémantique pour l'en-tête de l'article (nom + titre)
+                  */}
+                  <header className="equipe-page__header">
                     <h2 className="equipe-page__name">
                       {kine.prenom} {kine.nom}
                     </h2>
-                    <span className="equipe-page__titre">{kine.titre}</span>
-                  </div>
+                    {/*
+                      ✅ <p> au lieu de <span> : le titre professionnel
+                         est un contenu de niveau paragraphe, pas inline.
+                    */}
+                    <p className="equipe-page__titre">{kine.titre}</p>
+                  </header>
+
                   <p className="equipe-page__bio">{kine.bioCourte}</p>
 
                   <div className="equipe-page__specs">
                     <h3 className="equipe-page__specs-label">Spécialités</h3>
-                    <div className="equipe-page__specs-tags">
+                    {/*
+                      ✅ <ul>/<li> : liste de spécialités liées —
+                         sémantique de liste correcte, indexable.
+                    */}
+                    <ul className="equipe-page__specs-tags">
                       {kineSpecs.map((s) => (
-                        <Link
-                          to={`/specialites/${s.id}`}
-                          key={s.id}
-                          className="equipe-page__tag"
-                        >
-                          {s.nom}
-                        </Link>
+                        <li key={s.id}>
+                          <Link
+                            to={`/specialites/${s.id}`}
+                            className="equipe-page__tag"
+                          >
+                            {s.nom}
+                          </Link>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
                   <div className="equipe-page__actions">
                     <Link
                       to={`/equipe/${kine.id}`}
                       className="equipe-page__btn equipe-page__btn--primary"
+                      aria-label={`Voir le profil complet de ${kine.prenom} ${kine.nom}`}
                     >
                       <span>Voir le profil complet</span>
                       <ArrowRight size={16} aria-hidden="true" />
                     </Link>
+                    {/*
+                      ✅ aria-label explicite sur le lien mailto :
+                         "Contacter" seul est ambigu. Le contexte du nom
+                         du kiné rend le lien unique et descriptif.
+                    */}
                     <a
                       href={`mailto:${kine.email}`}
                       className="equipe-page__btn equipe-page__btn--secondary"
+                      aria-label={`Envoyer un e-mail à ${kine.prenom} ${kine.nom}`}
                     >
                       <Mail size={16} aria-hidden="true" />
-                      <span>Contacter</span>
+                      <span aria-hidden="true">Contacter</span>
                     </a>
                   </div>
                 </div>
