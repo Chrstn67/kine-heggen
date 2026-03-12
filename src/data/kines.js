@@ -22,7 +22,7 @@ export const kines = [
       "Formation McKenzie — Méthode de Diagnostic et Thérapie Mécanique",
       "Certification Dry Needling",
     ],
-    specialites: [1, 2, 3],
+    specialites: [1],
     approche:
       "Je crois en une rééducation active où le patient est pleinement acteur de sa guérison. Mon rôle est de guider, d'éduquer et de soulager afin que chacun retrouve son autonomie.",
     email: "justine.hh@kine-chez-jj.fr",
@@ -44,7 +44,7 @@ export const kines = [
       "Formation en Rééducation Périnéale et Pelvi-Périnéologie",
       "Formation en Kinésithérapie Pédiatrique",
     ],
-    specialites: [4, 5, 6],
+    specialites: [1],
     approche:
       "Chaque patient mérite une écoute attentive et des soins adaptés à sa situation. Je m'engage à créer un espace de confiance où chacun se sent respecté et accompagné.",
     email: "johan.heggen@kine-chez-jj.fr",

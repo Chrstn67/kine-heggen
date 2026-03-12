@@ -132,7 +132,7 @@ export default function SpecialitesPage() {
                            par liens (touche Tab / liste de liens).
                       */}
                       <Link
-                        to={`/kine-heggen/specialites/${spec.slug}`}
+                        to={`/specialites/${spec.slug}`}
                         className="specialites-page__link"
                         aria-label={`En savoir plus sur ${spec.nom}`}
                       >
