@@ -5,10 +5,10 @@ import { cabinet } from "../data/cabinet.js";
 import "./Header.css";
 
 const navLinks = [
-  { to: "/kine-heggen/", label: "Accueil" },
-  { to: "/kine-heggen/equipe", label: "L'équipe" },
-  { to: "/kine-heggen/specialites", label: "Nos soins" },
-  { to: "/kine-heggen/contact", label: "Contact" },
+  { to: "/", label: "Accueil" },
+  { to: "/equipe", label: "L'équipe" },
+  { to: "/specialites", label: "Nos soins" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -24,7 +24,7 @@ export default function Header() {
              <strong> sur le nom du cabinet = signal d'importance sémantique.
         */}
         <Link
-          to="/kine-heggen/"
+          to="/"
           className="header__logo"
           aria-label={`Accueil — ${cabinet.nom}`}
         >
@@ -57,7 +57,7 @@ export default function Header() {
               <li key={link.to} className="header__nav-item">
                 <NavLink
                   to={link.to}
-                  end={link.to === "/kine-heggen/"}
+                  end={link.to === "/"}
                   className={({ isActive }) =>
                     `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
                   }

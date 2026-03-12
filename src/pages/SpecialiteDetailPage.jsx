@@ -29,7 +29,7 @@ export default function SpecialiteDetailPage() {
   // Recherche par slug
   const spec = specialites.find((s) => s.slug === id);
 
-  if (!spec) return <Navigate to="/kine-heggen/specialites" replace />;
+  if (!spec) return <Navigate to="/specialites" replace />;
 
   // Gestion du cas où kineIds est un tableau
   const kineIds = Array.isArray(spec.kineIds) ? spec.kineIds : [spec.kineIds];
@@ -42,7 +42,7 @@ export default function SpecialiteDetailPage() {
     <article className="spec-detail">
       <div className="spec-detail__top">
         <div className="spec-detail__top-inner container">
-          <Link to="/kine-heggen/specialites" className="spec-detail__back">
+          <Link to="/specialites" className="spec-detail__back">
             <ArrowLeft size={18} aria-hidden="true" />
             <span>Toutes les spécialités</span>
           </Link>
@@ -107,7 +107,7 @@ export default function SpecialiteDetailPage() {
                 <div className="spec-detail__kines-list">
                   {kinesList.map((kine) => (
                     <Link
-                      to={`/kine-heggen/equipe/${kine.slug}`}
+                      to={`/equipe/${kine.slug}`}
                       key={kine.id}
                       className="spec-detail__kine-link"
                     >
@@ -139,7 +139,7 @@ export default function SpecialiteDetailPage() {
                   ? `Contactez-nous pour planifier votre séance avec ${kinesList.map((k) => k.prenom).join(" ou ")}.`
                   : "Contactez-nous pour planifier votre séance ou pour toute question."}
               </p>
-              <Link to="/kine-heggen/contact" className="spec-detail__cta-btn">
+              <Link to="/contact" className="spec-detail__cta-btn">
                 Nous contacter
               </Link>
             </div>
@@ -158,7 +158,7 @@ export default function SpecialiteDetailPage() {
               const SIcon = iconMap[s.icone] || Activity;
               return (
                 <Link
-                  to={`/kine-heggen/specialites/${s.slug}`}
+                  to={`/specialites/${s.slug}`}
                   key={s.id}
                   className="spec-detail__related-card"
                 >

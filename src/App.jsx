@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import SpecialitesPage from "./pages/SpecialitesPage.jsx";
@@ -8,31 +8,25 @@ import KineDetailPage from "./pages/KineDetailPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 
 /*
-  ℹ️  HashRouter est déclaré dans main.jsx — App.jsx ne change pas.
-     Les routes restent identiques : React Router les résout
-     sur la partie de l'URL après le #.
-     Ex : /#/kine-heggen/equipe/johan-heggen
-           → hash ignoré par le serveur
-           → React Router lit /kine-heggen/equipe/johan-heggen
-           → affiche KineDetailPage
+  ℹ️  Vite sert le projet depuis la base "/kine-heggen/" (vite.config.js).
+      HashRouter gère la navigation côté client après le #.
+      Les routes ne doivent donc PAS répéter "/kine-heggen/" :
+        ✅  http://localhost:5173/kine-heggen/#/equipe/johan-heggen
+        ❌  http://localhost:5173/kine-heggen/#/kine-heggen/equipe/johan-heggen
 */
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/kine-heggen/" element={<HomePage />} />
-        <Route path="/kine-heggen/specialites" element={<SpecialitesPage />} />
-        <Route
-          path="/kine-heggen/specialites/:id"
-          element={<SpecialiteDetailPage />}
-        />
-        <Route path="/kine-heggen/equipe" element={<EquipePage />} />
-        {/*
-          ✅ :slug — paramètre textuel SEO-friendly :
-             "justine-hoffmann-heggen" ou "johan-heggen"
-        */}
-        <Route path="/kine-heggen/equipe/:slug" element={<KineDetailPage />} />
-        <Route path="/kine-heggen/contact" element={<ContactPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/specialites" element={<SpecialitesPage />} />
+        <Route path="/specialites/:id" element={<SpecialiteDetailPage />} />
+        <Route path="/equipe" element={<EquipePage />} />
+        <Route path="/equipe/:slug" element={<KineDetailPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+
+        {/* Catch-all : toute URL inconnue ramène à l'accueil */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );

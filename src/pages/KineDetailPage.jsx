@@ -26,19 +26,13 @@ const iconMap = {
 };
 
 export default function KineDetailPage() {
-  /*
-    ✅ useParams récupère "slug" (nom du paramètre défini dans App.jsx)
-       au lieu de "id" — correspond à /kine-heggen/equipe/:slug
-  */
+  // ✅ "slug" correspond au paramètre :slug défini dans App.jsx
   const { slug } = useParams();
 
-  /*
-    ✅ Recherche par kine.slug au lieu de kine.id :
-       "justine-hoffmann-heggen" → trouve l'objet Justine
-  */
+  // ✅ Recherche par kine.slug (ex: "johan-heggen"), pas par kine.id
   const kine = kines.find((k) => k.slug === slug);
 
-  if (!kine) return <Navigate to="/kine-heggen/equipe" replace />;
+  if (!kine) return <Navigate to="/equipe" replace />;
 
   const kineSpecs = specialites.filter((s) => kine.specialites.includes(s.id));
 
@@ -46,7 +40,7 @@ export default function KineDetailPage() {
     <article className="kine-detail">
       <header className="kine-detail__top">
         <div className="kine-detail__top-inner container">
-          <Link to="/kine-heggen/equipe" className="kine-detail__back">
+          <Link to="/equipe" className="kine-detail__back">
             <ArrowLeft size={18} aria-hidden="true" />
             <span>{"Retour à l'équipe"}</span>
           </Link>
@@ -134,7 +128,7 @@ export default function KineDetailPage() {
                   return (
                     <li key={s.id}>
                       <Link
-                        to={`/kine-heggen/specialites/${s.slug}`}
+                        to={`/specialites/${s.slug}`}
                         className="kine-detail__spec-item"
                         aria-label={`En savoir plus sur ${s.nom}`}
                       >
@@ -168,10 +162,7 @@ export default function KineDetailPage() {
                 Prendre rendez-vous
               </h3>
               <p>Contactez-nous pour réserver une séance avec {kine.prenom}.</p>
-              <Link
-                to="/kine-heggen/contact"
-                className="kine-detail__contact-btn"
-              >
+              <Link to="/contact" className="kine-detail__contact-btn">
                 Nous contacter
               </Link>
             </section>

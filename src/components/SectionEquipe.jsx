@@ -47,11 +47,11 @@ export default function SectionEquipe() {
                    donne un intitulé clair et unique à chaque lien.
 
                 ✅ kine.slug au lieu de kine.id :
-                   → /kine-heggen/equipe/justine-hoffmann-heggen
+                   → /equipe/justine-hoffmann-heggen
                    URL lisible, mémorisable, et indexée avec le nom du praticien.
               */}
               <Link
-                to={`/kine-heggen/equipe/${kine.slug}`}
+                to={`/equipe/${kine.slug}`}
                 className="home-equipe__card"
                 aria-label={`Voir le profil de ${kine.prenom} ${kine.nom}, ${kine.titre}`}
               >

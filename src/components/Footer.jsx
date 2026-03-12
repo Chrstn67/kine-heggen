@@ -16,7 +16,7 @@ export default function Footer() {
           {/* ── Colonne marque ── */}
           <div className="footer__col footer__col--brand">
             <Link
-              to="/kine-heggen/"
+              to="/"
               className="footer__logo"
               aria-label={`Retour à l'accueil — ${cabinet.nom}`}
             >
@@ -45,16 +45,16 @@ export default function Footer() {
             {/* ✅ h2 plutôt que h3 : dans <footer>, les sections sont de niveau 2 */}
             <ul className="footer__links">
               <li>
-                <Link to="/kine-heggen/">Accueil</Link>
+                <Link to="/">Accueil</Link>
               </li>
               <li>
-                <Link to="/kine-heggen/specialites">Nos soins</Link>
+                <Link to="/specialites">Nos soins</Link>
               </li>
               <li>
-                <Link to="/kine-heggen/equipe">{"L'équipe"}</Link>
+                <Link to="/equipe">{"L'équipe"}</Link>
               </li>
               <li>
-                <Link to="/kine-heggen/contact">Contact</Link>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </nav>
@@ -103,7 +103,6 @@ export default function Footer() {
                           href={`tel:${number.replace(/\s/g, "")}`}
                           aria-label={`Appeler le ${number}`}
                         >
-                          {"  "}
                           {number}
                         </a>
                       </div>
