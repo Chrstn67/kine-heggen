@@ -1,21 +1,29 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { HashRouter } from "react-router-dom";
 import App from "./App.jsx";
-import "./index.css";
+import "./styles/global.css";
 
-/*
-  ✅ HashRouter au lieu de BrowserRouter :
-     Les URLs deviennent /#/kine-heggen/equipe/johan-heggen
-     Le serveur ne voit que "/" et renvoie toujours index.html —
-     la partie après # est gérée entièrement par le navigateur.
-     Indispensable sur GitHub Pages ou tout hébergement statique
-     qui ne permet pas de configurer un fallback vers index.html.
-*/
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    {/*
+      ✅ HashRouter au lieu de BrowserRouter :
+         Sur GitHub Pages (ou tout hébergeur statique sans config serveur),
+         BrowserRouter provoque une 404 au rafraîchissement car le serveur
+         cherche un fichier physique à l'URL demandée — qui n'existe pas.
+
+         HashRouter préfixe toutes les URLs d'un # :
+         → https://user.github.io/kine-heggen/#/kine-heggen/equipe/johan-heggen
+         Le fragment (#...) n'est jamais envoyé au serveur :
+         le serveur reçoit toujours "/" et sert index.html,
+         puis React Router lit le hash côté client.
+
+         Inconvénient mineur : le # dans l'URL est moins "propre" visuellement,
+         mais sans impact SEO réel pour un site GitHub Pages
+         (Google indexe les hash routes correctement depuis 2015).
+    */}
     <HashRouter>
       <App />
     </HashRouter>
-  </StrictMode>,
+  </React.StrictMode>,
 );
