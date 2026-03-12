@@ -28,13 +28,18 @@
     list-style: none;
     padding: 0;
     margin: 0; /* reset <ul> defaults */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 32px;
+  }
+
+  & .home-equipe__item {
+    /* Chaque item prend toute la largeur pour permettre l'alternance */
   }
 
   & .home-equipe__card {
     display: flex;
+    flex-direction: row; /* photo à gauche par défaut */
     background: var(--color-bg-alt);
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -54,8 +59,17 @@
     }
   }
 
+  /*
+    Alternance : les items impairs (index 1, 3…) reçoivent --reverse.
+    flex-direction: row-reverse inverse l'ordre photo/texte
+    sans toucher au DOM — sémantique et ordre de lecture AT inchangés.
+  */
+  & .home-equipe__item--reverse .home-equipe__card {
+    flex-direction: row-reverse;
+  }
+
   & .home-equipe__photo {
-    width: 240px;
+    width: 340px;
     flex-shrink: 0;
 
     & img {
@@ -66,13 +80,14 @@
   }
 
   & .home-equipe__info {
-    padding: 32px;
+    padding: 40px 48px;
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Centre verticalement le contenu texte */
   }
 
   & .home-equipe__name {
-    font-size: 24px;
+    font-size: 28px;
     color: var(--color-text);
     margin-bottom: 4px;
   }
@@ -90,7 +105,7 @@
     line-height: 1.6;
     color: var(--color-text-light);
     flex: 1;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 
   & .home-equipe__link {
@@ -106,28 +121,42 @@
   }
 }
 
+/* ── Tablette : on repasse en colonne simple, alternance désactivée ── */
 @media (max-width: 900px) {
   .home-equipe {
     & .home-equipe__grid {
-      list-style: none;
-      padding: 0;
-      margin: 0; /* reset <ul> defaults */
-      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    & .home-equipe__card,
+    & .home-equipe__item--reverse .home-equipe__card {
+      /* Annule le row-reverse sur tablette — layout colonne uniforme */
+      flex-direction: row;
+    }
+
+    & .home-equipe__photo {
+      width: 240px;
+    }
+
+    & .home-equipe__info {
+      padding: 32px;
     }
   }
 }
 
+/* ── Mobile : empilement vertical photo au-dessus du texte ── */
 @media (max-width: 600px) {
   .home-equipe {
     padding: 64px 0;
 
-    & .home-equipe__card {
+    & .home-equipe__card,
+    & .home-equipe__item--reverse .home-equipe__card {
       flex-direction: column;
     }
 
     & .home-equipe__photo {
       width: 100%;
-      height: 240px;
+      height: 260px;
     }
 
     & .home-equipe__info {

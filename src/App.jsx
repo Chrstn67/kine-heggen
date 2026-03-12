@@ -18,7 +18,12 @@ export default function App() {
           element={<SpecialiteDetailPage />}
         />
         <Route path="/kine-heggen/equipe" element={<EquipePage />} />
-        <Route path="/kine-heggen/equipe/:id" element={<KineDetailPage />} />
+        {/*
+          ✅ :slug au lieu de :id — le paramètre reçoit désormais
+             "justine-hoffmann-heggen" ou "johan-heggen".
+             KineDetailPage recherche par kine.slug au lieu de kine.id.
+        */}
+        <Route path="/kine-heggen/equipe/:slug" element={<KineDetailPage />} />
         <Route path="/kine-heggen/contact" element={<ContactPage />} />
       </Route>
     </Routes>

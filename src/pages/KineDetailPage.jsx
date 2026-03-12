@@ -26,24 +26,27 @@ const iconMap = {
 };
 
 export default function KineDetailPage() {
-  const { id } = useParams();
-  const kine = kines.find((k) => k.id === id);
+  /*
+    ✅ useParams récupère "slug" (nom du paramètre défini dans App.jsx)
+       au lieu de "id" — correspond à /kine-heggen/equipe/:slug
+  */
+  const { slug } = useParams();
 
-  if (!kine) return <Navigate to="/equipe" replace />;
+  /*
+    ✅ Recherche par kine.slug au lieu de kine.id :
+       "justine-hoffmann-heggen" → trouve l'objet Justine
+  */
+  const kine = kines.find((k) => k.slug === slug);
+
+  if (!kine) return <Navigate to="/kine-heggen/equipe" replace />;
 
   const kineSpecs = specialites.filter((s) => kine.specialites.includes(s.id));
 
   return (
-    // ✅ <article> correct pour une fiche personne — contenu autonome et auto-descriptif
     <article className="kine-detail">
-      {/*
-        ✅ <header> sémantique pour le bandeau héro de la fiche :
-           contient le lien retour + photo + nom + titre + email.
-           <header> dans un <article> est valide et correct.
-      */}
       <header className="kine-detail__top">
         <div className="kine-detail__top-inner container">
-          <Link to="/equipe" className="kine-detail__back">
+          <Link to="/kine-heggen/equipe" className="kine-detail__back">
             <ArrowLeft size={18} aria-hidden="true" />
             <span>{"Retour à l'équipe"}</span>
           </Link>
@@ -59,14 +62,8 @@ export default function KineDetailPage() {
               <h1 className="kine-detail__name">
                 {kine.prenom} {kine.nom}
               </h1>
-              {/*
-                ✅ <p> pour le titre professionnel — contenu paragraphe, pas un titre
-              */}
               <p className="kine-detail__titre">{kine.titre}</p>
               <p className="kine-detail__bio-courte">{kine.bioCourte}</p>
-              {/*
-                ✅ aria-label explicite sur le lien mailto
-              */}
               <a
                 href={`mailto:${kine.email}`}
                 className="kine-detail__email-btn"
@@ -95,11 +92,6 @@ export default function KineDetailPage() {
                 <GraduationCap size={22} aria-hidden="true" />
                 <span>Formation</span>
               </h2>
-              {/*
-                ✅ <ol> au lieu de <ul> pour la formation :
-                   une liste de diplômes/étapes est naturellement ordonnée
-                   chronologiquement — <ol> est sémantiquement plus précis.
-              */}
               <ol className="kine-detail__formation">
                 {kine.formation.map((f, i) => (
                   <li key={i}>
@@ -113,12 +105,6 @@ export default function KineDetailPage() {
               </ol>
             </section>
 
-            {/*
-              ✅ <figure> pour encapsuler la blockquote + cite :
-                 <figure> est sémantiquement conçu pour ce pattern.
-                 Il remplace avantageusement le <section> qui était
-                 utilisé ici juste pour le style.
-            */}
             <figure
               className="kine-detail__quote"
               aria-label={`Citation de ${kine.prenom} ${kine.nom}`}
@@ -131,11 +117,6 @@ export default function KineDetailPage() {
               <blockquote className="kine-detail__quote-text">
                 <p>{kine.approche}</p>
               </blockquote>
-              {/*
-                ✅ <figcaption> + <cite> : pattern HTML5 recommandé
-                   pour les citations avec attribution.
-                   <cite> doit entourer le nom de la source.
-              */}
               <figcaption>
                 <cite>
                   — {kine.prenom} {kine.nom}
@@ -144,26 +125,16 @@ export default function KineDetailPage() {
             </figure>
           </div>
 
-          {/* ✅ <aside> déjà correct — sidebar = contenu complémentaire */}
           <aside className="kine-detail__sidebar">
             <div className="kine-detail__specs-card">
               <h3 className="kine-detail__sidebar-title">Spécialités</h3>
-              {/*
-                ✅ <ul>/<li> pour la liste des spécialités :
-                   remplace <div class="kine-detail__specs-list">
-              */}
               <ul className="kine-detail__specs-list">
                 {kineSpecs.map((s) => {
                   const Icon = iconMap[s.icone] || Activity;
                   return (
                     <li key={s.id}>
-                      {/*
-                        ✅ aria-label sur chaque lien :
-                           sans lui, le texte accessible serait
-                           nom + résumé + flèche — trop verbeux.
-                      */}
                       <Link
-                        to={`/specialites/${s.id}`}
+                        to={`/kine-heggen/specialites/${s.slug}`}
                         className="kine-detail__spec-item"
                         aria-label={`En savoir plus sur ${s.nom}`}
                       >
@@ -189,12 +160,6 @@ export default function KineDetailPage() {
               </ul>
             </div>
 
-            {/*
-              ✅ <aside> imbriqué remplacé par une <section> :
-                 on est déjà dans un <aside> parent — deux <aside>
-                 imbriqués est un anti-pattern. Une <section> avec
-                 son titre h3 est plus propre.
-            */}
             <section
               className="kine-detail__contact-card"
               aria-labelledby="rdv-heading"

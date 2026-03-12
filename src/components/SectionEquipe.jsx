@@ -28,17 +28,30 @@ export default function SectionEquipe() {
              sont des éléments d'un ensemble homogène.
         */}
         <ul className="home-equipe__grid">
-          {kines.map((kine) => (
-            <li key={kine.id}>
+          {kines.map((kine, index) => (
+            <li
+              key={kine.id}
+              /*
+                Classe CSS pair/impair pour l'alternance visuelle gauche/droite.
+                index % 2 === 0 → photo à gauche (comportement par défaut)
+                index % 2 === 1 → photo à droite via flex-direction: row-reverse
+                Purement visuel : aucun impact sur la sémantique ou l'ordre du DOM.
+              */
+              className={`home-equipe__item ${index % 2 === 1 ? "home-equipe__item--reverse" : ""}`}
+            >
               {/*
                 ✅ aria-label sur le <Link> :
                    le texte accessible serait autrement une concaténation
                    de prénom + nom + titre + bio + "Découvrir son profil" —
                    trop verbeux pour les AT. Un aria-label synthétique
                    donne un intitulé clair et unique à chaque lien.
+
+                ✅ kine.slug au lieu de kine.id :
+                   → /kine-heggen/equipe/justine-hoffmann-heggen
+                   URL lisible, mémorisable, et indexée avec le nom du praticien.
               */}
               <Link
-                to={`/equipe/${kine.id}`}
+                to={`/kine-heggen/equipe/${kine.slug}`}
                 className="home-equipe__card"
                 aria-label={`Voir le profil de ${kine.prenom} ${kine.nom}, ${kine.titre}`}
               >

@@ -2,6 +2,12 @@
 export const kines = [
   {
     id: 1,
+    /*
+      ✅ slug SEO-friendly : utilisé dans les URLs à la place de l'id numérique.
+         Format kebab-case : Prénom-Nom en minuscules, accents retirés.
+         → /kine-heggen/equipe/justine-hoffmann-heggen
+    */
+    slug: "justine-hoffmann-heggen",
     prenom: "Justine",
     nom: "Hoffmann-Heggen",
     titre: "Kinésithérapeute D.E.",
@@ -16,13 +22,14 @@ export const kines = [
       "Formation McKenzie — Méthode de Diagnostic et Thérapie Mécanique",
       "Certification Dry Needling",
     ],
-    specialites: [1, 2, 3], // IDs des spécialités
+    specialites: [1, 2, 3],
     approche:
       "Je crois en une rééducation active où le patient est pleinement acteur de sa guérison. Mon rôle est de guider, d'éduquer et de soulager afin que chacun retrouve son autonomie.",
     email: "justine.hh@kine-chez-jj.fr",
   },
   {
     id: 2,
+    slug: "johan-heggen",
     prenom: "Johan",
     nom: "Heggen",
     titre: "Kinésithérapeute D.E.",
@@ -37,7 +44,7 @@ export const kines = [
       "Formation en Rééducation Périnéale et Pelvi-Périnéologie",
       "Formation en Kinésithérapie Pédiatrique",
     ],
-    specialites: [4, 5, 6], // IDs des spécialités
+    specialites: [4, 5, 6],
     approche:
       "Chaque patient mérite une écoute attentive et des soins adaptés à sa situation. Je m'engage à créer un espace de confiance où chacun se sent respecté et accompagné.",
     email: "johan.heggen@kine-chez-jj.fr",
