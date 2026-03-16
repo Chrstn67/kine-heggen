@@ -11,6 +11,7 @@ export default function EquipePage() {
       <PageHeader
         label="Notre équipe"
         title={"L'équipe du cabinet"}
+        teaser="Un duo formé ensemble, un parcours commun... Découvrez notre parcours et nos engagements."
         description={[
           "Après une première année commune aux études de santé (PACES), obligatoire pour intégrer une école de kinésithérapie, nous poursuivons notre formation à la rentrée 2013 : Justine à Strasbourg et Johan à Mulhouse.",
           "Durant trois années de formation, nous réalisons de nombreux stages, aussi bien en cabinet libéral que dans différents services hospitaliers : cardio-respiratoire, neurologie, traumatologie, pédiatrie, entre autres.",
@@ -66,7 +67,6 @@ export default function EquipePage() {
                   </div>
 
                   <div className="equipe-page__actions">
-                    {/* ✅ kine.slug — URL lisible : /equipe/justine-hoffmann-heggen */}
                     <Link
                       to={`/equipe/${kine.slug}`}
                       className="equipe-page__btn equipe-page__btn--primary"

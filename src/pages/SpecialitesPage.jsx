@@ -28,6 +28,7 @@ export default function SpecialitesPage() {
       <PageHeader
         label="Nos soins"
         title="Nos spécialités"
+        teaser="Thérapie manuelle, viscérale, soins à domicile… découvrez l'étendue de nos prises en charge."
         description={[
           "Nous travaillons essentiellement en manuel en prenant un patient par demi-heure, voire une heure en fonction des besoins.",
           "Nous nous rendons au domicile des patients dans le secteur de Boersch et des villages alentours (Bischoffsheim, Rosheim, Ottrott...).",
@@ -37,10 +38,6 @@ export default function SpecialitesPage() {
         ]}
       />
 
-      {/*
-        ✅ aria-labelledby sur un h2 sr-only plutôt qu'aria-label inline :
-           plus robuste, indexable par les crawlers comme titre de section.
-      */}
       <section
         className="specialites-page"
         aria-labelledby="specialites-list-heading"
@@ -49,11 +46,6 @@ export default function SpecialitesPage() {
           Liste des spécialités
         </h2>
         <div className="specialites-page__inner container">
-          {/*
-            ✅ <ul>/<li> au lieu de <div> pour la grille :
-               liste d'items homogènes → sémantique de liste.
-               Les <article> restent dans les <li>.
-          */}
           <ul className="specialites-page__grid">
             {specialites.map((spec) => {
               const Icon = iconMap[spec.icone] || Activity;
@@ -72,12 +64,6 @@ export default function SpecialitesPage() {
                       >
                         <Icon size={28} aria-hidden="true" />
                       </div>
-                      {/*
-                        ✅ h3 au lieu de h2 : on est sous le h2 sr-only
-                           "Liste des spécialités" → hiérarchie correcte.
-                           (PageHeader a le h1, la section a le h2 sr-only,
-                            chaque card a un h3)
-                      */}
                       <h3 className="specialites-page__card-title">
                         {spec.nom}
                       </h3>
@@ -125,12 +111,6 @@ export default function SpecialitesPage() {
                         </div>
                       )}
 
-                      {/*
-                        ✅ aria-label unique sur chaque lien "En savoir plus" :
-                           sans lui, les AT lisent N fois "En savoir plus"
-                           sans contexte — illisible pour la navigation
-                           par liens (touche Tab / liste de liens).
-                      */}
                       <Link
                         to={`/specialites/${spec.slug}`}
                         className="specialites-page__link"

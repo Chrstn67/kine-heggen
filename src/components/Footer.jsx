@@ -103,6 +103,7 @@ export default function Footer() {
                           href={`tel:${number.replace(/\s/g, "")}`}
                           aria-label={`Appeler le ${number}`}
                         >
+                          {" "}
                           {number}
                         </a>
                       </div>

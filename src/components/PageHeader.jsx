@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./PageHeader.css";
 
-export default function PageHeader({ label, title, description }) {
+export default function PageHeader({ label, title, description, teaser }) {
   const [open, setOpen] = useState(false);
   const drawerRef = useRef(null);
   const triggerRef = useRef(null);
@@ -13,14 +13,15 @@ export default function PageHeader({ label, title, description }) {
       ? [description]
       : [];
   const isLong = texts.length > 1 || texts.join("").length > 300;
-  const preview = texts[0] ?? "";
+  const preview =
+    teaser ??
+    "Découvrez notre approche, notre parcours et ce qui nous anime au quotidien.";
 
   useEffect(() => {
     if (!open) return;
     const handleKey = (e) => {
       if (e.key === "Escape") {
         setOpen(false);
-        // ✅ Retour du focus sur le bouton déclencheur à la fermeture
         triggerRef.current?.focus();
       }
     };
@@ -35,7 +36,6 @@ export default function PageHeader({ label, title, description }) {
     };
   }, [open]);
 
-  // ✅ Focus automatique sur le drawer à l'ouverture
   useEffect(() => {
     if (open && drawerRef.current) {
       drawerRef.current.focus();
@@ -43,17 +43,8 @@ export default function PageHeader({ label, title, description }) {
   }, [open]);
 
   return (
-    /*
-      ✅ <header> au lieu de <div> :
-         PageHeader est systématiquement le bandeau titre d'une page —
-         <header> dans un <main> ou une <section> est sémantiquement
-         correct et aide les crawlers à identifier le titre de page.
-    */
     <header className="page-header">
       <div className="page-header__inner container">
-        {/*
-          ✅ <p> au lieu de <span> block pour le label de catégorie
-        */}
         {label && <p className="page-header__label">{label}</p>}
         <h1 className="page-header__title">{title}</h1>
 
@@ -65,11 +56,6 @@ export default function PageHeader({ label, title, description }) {
                 ref={triggerRef}
                 className="page-header__trigger"
                 onClick={() => setOpen(true)}
-                /*
-                  ✅ aria-expanded + aria-controls :
-                     indique aux AT l'état du drawer et le lie
-                     explicitement à son contenu.
-                */
                 aria-expanded={open}
                 aria-controls="page-header-drawer"
               >
@@ -87,16 +73,6 @@ export default function PageHeader({ label, title, description }) {
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
-          {/*
-            ✅ role="dialog" + aria-modal="true" :
-               indique aux AT que c'est une fenêtre modale.
-               Sans ça, les lecteurs d'écran continuent de lire
-               le contenu derrière le drawer.
-            ✅ aria-labelledby pointe sur le label du drawer
-               pour donner un nom accessible à la dialog.
-            ✅ tabIndex="-1" permet le focus programmatique
-               (useEffect ci-dessus) sans rendre le div tabulable.
-          */}
           <aside
             id="page-header-drawer"
             ref={drawerRef}
@@ -110,10 +86,6 @@ export default function PageHeader({ label, title, description }) {
             <div className="page-header__drawer-inner">
               <div className="page-header__drawer-header">
                 {label && (
-                  /*
-                    ✅ id="drawer-label" : cible de aria-labelledby
-                       sur le dialog — donne son nom accessible à la modal.
-                  */
                   <p id="drawer-label" className="page-header__drawer-label">
                     {label}
                   </p>
@@ -135,10 +107,6 @@ export default function PageHeader({ label, title, description }) {
                   <p key={i}>{text}</p>
                 ))}
               </div>
-              {/*
-                ✅ aria-label explicite sur le bouton de fermeture bas :
-                   "Fermer" seul est ambigu hors contexte pour les AT.
-              */}
               <button
                 className="page-header__drawer-bottom-close"
                 onClick={() => {
