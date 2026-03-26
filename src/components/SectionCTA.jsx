@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, MapPin, CreditCard } from "lucide-react";
 import { cabinet } from "../data/cabinet.js";
+import { useScrollReveal } from "../hooks/UseScrollReveal";
 import "./SectionCTA.css";
 
 export default function SectionCTA() {
+  const ref = useScrollReveal();
+
   return (
-    <section className="cta" aria-labelledby="cta-heading">
+    <section className="cta" aria-labelledby="cta-heading" ref={ref}>
       <div className="cta__inner container">
-        <div className="cta__content">
+        <div className="cta__content" data-reveal="fade-right">
           <h2 id="cta-heading" className="cta__title">
             Prenez soin de vous
           </h2>
@@ -21,7 +24,12 @@ export default function SectionCTA() {
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
-        <div className="cta__infos">
+
+        <div
+          className="cta__infos"
+          data-reveal="fade-left"
+          data-reveal-delay="100"
+        >
           <div className="cta__info-card">
             <Clock size={20} aria-hidden="true" />
             <div>

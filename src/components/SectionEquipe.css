@@ -1,15 +1,16 @@
+/* ─── SectionEquipe.css — avec overlay photo hover ─── */
+
 .home-equipe {
   padding: 96px 0;
   background: var(--color-primary-light);
 
   & .home-equipe__header {
-    /* <header> has no default styles to reset */
     text-align: center;
     margin-bottom: 56px;
   }
 
   & .home-equipe__label {
-    margin: 0; /* reset <p> default margin */
+    margin: 0;
     display: inline-block;
     font-size: 13px;
     font-weight: 600;
@@ -27,19 +28,15 @@
   & .home-equipe__grid {
     list-style: none;
     padding: 0;
-    margin: 0; /* reset <ul> defaults */
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 32px;
   }
 
-  & .home-equipe__item {
-    /* Chaque item prend toute la largeur pour permettre l'alternance */
-  }
-
   & .home-equipe__card {
     display: flex;
-    flex-direction: row; /* photo à gauche par défaut */
+    flex-direction: row;
     background: var(--color-bg-alt);
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -56,34 +53,70 @@
         color: var(--color-primary);
         gap: 10px;
       }
+
+      /* Fait glisser l'overlay vers le haut */
+      & .home-equipe__photo-overlay {
+        transform: translateY(0);
+      }
     }
   }
 
-  /*
-    Alternance : les items impairs (index 1, 3…) reçoivent --reverse.
-    flex-direction: row-reverse inverse l'ordre photo/texte
-    sans toucher au DOM — sémantique et ordre de lecture AT inchangés.
-  */
   & .home-equipe__item--reverse .home-equipe__card {
     flex-direction: row-reverse;
   }
 
+  /* ── Photo + overlay ── */
   & .home-equipe__photo {
     width: 340px;
     flex-shrink: 0;
+    position: relative; /* contexte pour l'overlay */
+    overflow: hidden;
 
     & img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      /* Légère mise à l'échelle au hover de la card */
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     }
+  }
+
+  /* Zoom de l'image au hover de la card */
+  & .home-equipe__card:hover .home-equipe__photo img {
+    transform: scale(1.04);
+  }
+
+  /* Overlay sombre qui glisse depuis le bas */
+  & .home-equipe__photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(8, 80, 65, 0.82) 0%,
+      rgba(8, 80, 65, 0) 55%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  & .home-equipe__photo-overlay-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
   }
 
   & .home-equipe__info {
     padding: 40px 48px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centre verticalement le contenu texte */
+    justify-content: center;
   }
 
   & .home-equipe__name {
@@ -93,7 +126,7 @@
   }
 
   & .home-equipe__titre {
-    margin-top: 0; /* reset <p> top margin */
+    margin-top: 0;
     font-size: 14px;
     font-weight: 500;
     color: var(--color-primary);
@@ -121,7 +154,7 @@
   }
 }
 
-/* ── Tablette : on repasse en colonne simple, alternance désactivée ── */
+/* ── Tablette ── */
 @media (max-width: 900px) {
   .home-equipe {
     & .home-equipe__grid {
@@ -130,21 +163,19 @@
 
     & .home-equipe__card,
     & .home-equipe__item--reverse .home-equipe__card {
-      /* Annule le row-reverse sur tablette — layout colonne uniforme */
       flex-direction: row;
     }
 
     & .home-equipe__photo {
       width: 240px;
     }
-
     & .home-equipe__info {
       padding: 32px;
     }
   }
 }
 
-/* ── Mobile : empilement vertical photo au-dessus du texte ── */
+/* ── Mobile ── */
 @media (max-width: 600px) {
   .home-equipe {
     padding: 64px 0;
@@ -157,6 +188,11 @@
     & .home-equipe__photo {
       width: 100%;
       height: 260px;
+
+      /* Sur mobile, l'overlay est toujours visible (pas de hover) */
+      & .home-equipe__photo-overlay {
+        transform: translateY(0);
+      }
     }
 
     & .home-equipe__info {

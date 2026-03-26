@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Mail } from "lucide-react";
 import { kines } from "../data/kines.js";
 import { specialites } from "../data/specialites.js";
+import { useScrollReveal } from "../hooks/UseScrollReveal";
 import PageHeader from "../components/PageHeader.jsx";
 import "./EquipePage.css";
 
 export default function EquipePage() {
+  const ref = useScrollReveal();
+
   return (
     <>
       <PageHeader
@@ -23,17 +26,21 @@ export default function EquipePage() {
           "En 2023, nous visitons l'ancien bâtiment du Crédit Agricole du village de Boersch, qui deviendra, un an plus tard, notre cabinet.",
         ]}
       />
-      <section className="equipe-page" aria-labelledby="equipe-list-heading">
+      <section
+        className="equipe-page"
+        aria-labelledby="equipe-list-heading"
+        ref={ref}
+      >
         <h2 id="equipe-list-heading" className="sr-only">
           Liste des praticiens
         </h2>
-        <div className="equipe-page__inner container">
+        <div className="equipe-page__inner container" data-reveal-stagger="120">
           {kines.map((kine) => {
             const kineSpecs = specialites.filter((s) =>
               kine.specialites.includes(s.id),
             );
             return (
-              <article key={kine.id} className="equipe-page__card">
+              <article key={kine.id} className="equipe-page__card" data-reveal>
                 <div className="equipe-page__photo-col">
                   <img
                     src={kine.photo}

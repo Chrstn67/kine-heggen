@@ -11,18 +11,57 @@ const navLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
+/**
+ * Retourne true si le cabinet est actuellement ouvert
+ * selon cabinet.horaires (format { jour: "Lundi", heures: "8h00 - 19h00" | "Fermé" }).
+ */
+function isCabinetOpen() {
+  const now = new Date();
+  const dayIndex = now.getDay(); /* 0=dim, 1=lun … 6=sam */
+
+  /* Map du jour JS vers la clé dans cabinet.horaires */
+  const dayNames = [
+    "Dimanche",
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+  ];
+  const todayName = dayNames[dayIndex];
+
+  const todaySchedule = cabinet.horaires?.find(
+    (h) => h.jour.toLowerCase() === todayName.toLowerCase(),
+  );
+
+  if (!todaySchedule || todaySchedule.heures === "Fermé") return false;
+
+  /* Tente de parser "8h00 - 19h00" */
+  const match = todaySchedule.heures.match(
+    /(\d+)h(\d+)?\s*[-–]\s*(\d+)h(\d+)?/,
+  );
+  if (!match) return false;
+
+  const openH = parseInt(match[1], 10);
+  const openM = parseInt(match[2] ?? "0", 10);
+  const closeH = parseInt(match[3], 10);
+  const closeM = parseInt(match[4] ?? "0", 10);
+
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const openMinutes = openH * 60 + openM;
+  const closeMinutes = closeH * 60 + closeM;
+
+  return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const open = isCabinetOpen();
 
   return (
-    // ✅ <header> a déjà le rôle ARIA "banner" implicitement — role="banner" supprimé
     <header className="header">
       <div className="header__inner container">
-        {/*
-          ✅ Logo : <Link> avec aria-label complet incluant le nom du cabinet.
-             <span> avec aria-hidden sur l'abréviation décorative "KH".
-             <strong> sur le nom du cabinet = signal d'importance sémantique.
-        */}
         <Link
           to="/"
           className="header__logo"
@@ -34,26 +73,25 @@ export default function Header() {
           <strong className="header__logo-text">{cabinet.nom}</strong>
         </Link>
 
-        {/*
-          ✅ <nav> a déjà le rôle ARIA "navigation" implicitement — role="navigation" supprimé.
-             aria-label reste INDISPENSABLE pour distinguer cette nav des autres
-             (footer nav, breadcrumb…) dans les outils d'accessibilité.
-        */}
+        {/* ── Badge statut ouvert/fermé ── */}
+        <div
+          className={`header__status-badge ${open ? "header__status-badge--open" : "header__status-badge--closed"}`}
+          aria-label={open ? "Cabinet ouvert" : "Cabinet fermé"}
+          aria-live="polite"
+        >
+          <span className="header__status-dot" aria-hidden="true" />
+          <span className="header__status-label">
+            {open ? "Ouvert" : "Fermé"}
+          </span>
+        </div>
+
         <nav className="header__nav" aria-label="Navigation principale">
-          {/*
-            ✅ id="mobile-menu" AJOUTÉ sur <ul> :
-               aria-controls="mobile-menu" sur le bouton burger y fait référence —
-               c'était un bug : la référence était cassée, ce qui nuit à l'accessibilité
-               et génère des erreurs dans les audits Lighthouse/axe.
-          */}
           <ul
             id="mobile-menu"
             className={`header__nav-list ${menuOpen ? "header__nav-list--open" : ""}`}
-            // ✅ aria-hidden masque la liste aux AT quand le menu mobile est fermé
             aria-hidden={!menuOpen ? "true" : undefined}
           >
             {navLinks.map((link) => (
-              // ✅ Pas de changement ici — <li> + <NavLink> est correct
               <li key={link.to} className="header__nav-item">
                 <NavLink
                   to={link.to}
@@ -61,8 +99,6 @@ export default function Header() {
                   className={({ isActive }) =>
                     `header__nav-link ${isActive ? "header__nav-link--active" : ""}`
                   }
-                  // ✅ aria-current="page" géré automatiquement par NavLink via la classe active,
-                  //    mais on peut l'ajouter explicitement pour les crawlers :
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
@@ -70,15 +106,9 @@ export default function Header() {
               </li>
             ))}
 
-            {/* ── Numéros de téléphone dans le menu mobile ── */}
             <li className="header__nav-item header__nav-item--cta-mobile">
               <div className="header__mobile-phones">
                 {cabinet.telephone.map((number, index) => (
-                  /*
-                    ✅ aria-label explicite sur chaque lien téléphone :
-                       les AT et Google lisent "Appeler le 03 89 …"
-                       plutôt qu'un numéro brut sans contexte.
-                  */
                   <a
                     key={index}
                     href={`tel:${number.replace(/\s/g, "")}`}
@@ -95,12 +125,6 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/*
-          ✅ CTA desktop : aria-label ajouté.
-             Sans lui, le lien n'a pour texte accessible que le numéro brut —
-             Google et les AT ne comprennent pas l'intention (appeler).
-             Avec aria-label, le lien est décrit comme une action.
-        */}
         <a
           href={`tel:${cabinet.telephone[0].replace(/\s/g, "")}`}
           className="header__cta header__cta--desktop"
@@ -110,12 +134,6 @@ export default function Header() {
           <span>{cabinet.telephone[0]}</span>
         </a>
 
-        {/*
-          ✅ Bouton burger : déjà bien implémenté.
-             - aria-expanded ✓
-             - aria-controls="mobile-menu" ✓ (référence maintenant valide grâce au id ajouté sur <ul>)
-             - aria-label dynamique ✓
-        */}
         <button
           className="header__burger"
           onClick={() => setMenuOpen(!menuOpen)}

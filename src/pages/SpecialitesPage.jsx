@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { specialites } from "../data/specialites.js";
 import { kines } from "../data/kines.js";
+import { useScrollReveal } from "../hooks/UseScrollReveal";
 import PageHeader from "../components/PageHeader.jsx";
 import "./SpecialitesPage.css";
 
@@ -23,6 +24,8 @@ const iconMap = {
 };
 
 export default function SpecialitesPage() {
+  const ref = useScrollReveal();
+
   return (
     <>
       <PageHeader
@@ -41,12 +44,37 @@ export default function SpecialitesPage() {
       <section
         className="specialites-page"
         aria-labelledby="specialites-list-heading"
+        ref={ref}
       >
         <h2 id="specialites-list-heading" className="sr-only">
           Liste des spécialités
         </h2>
         <div className="specialites-page__inner container">
-          <ul className="specialites-page__grid">
+          {/* ── Bandeau Body Map ── */}
+          <div className="specialites-page__bodymap-banner" data-reveal>
+            <div className="specialites-page__bodymap-info">
+              <span className="specialites-page__bodymap-eyebrow">
+                Outil interactif
+              </span>
+              <p className="specialites-page__bodymap-title">
+                Explorez l'anatomie du corps humain
+              </p>
+              <p className="specialites-page__bodymap-desc">
+                Os, muscles, nerfs, tendons, vaisseaux… <br />
+                Un atlas anatomique complet classé par système.
+              </p>
+            </div>
+            <Link
+              to="/body-map"
+              className="specialites-page__bodymap-btn"
+              aria-label="Ouvrir le Body Map anatomique interactif"
+            >
+              <span>Ouvrir le Body Map</span>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+
+          <ul className="specialites-page__grid" data-reveal-stagger="70">
             {specialites.map((spec) => {
               const Icon = iconMap[spec.icone] || Activity;
               const kineIds = Array.isArray(spec.kineIds)
@@ -55,7 +83,7 @@ export default function SpecialitesPage() {
               const kinesList = kines.filter((k) => kineIds.includes(k.id));
 
               return (
-                <li key={spec.id}>
+                <li key={spec.id} data-reveal>
                   <article className="specialites-page__card">
                     <div className="specialites-page__card-top">
                       <div

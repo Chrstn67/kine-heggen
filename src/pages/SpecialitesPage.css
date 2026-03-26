@@ -108,3 +108,138 @@
     }
   }
 }
+
+/* ── Bandeau Body Map ── */
+.specialites-page__bodymap-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 32px;
+  margin-bottom: 40px;
+  background: var(--color-bg-dark);
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+
+  /* Forme décorative */
+  &::before {
+    content: "";
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 60px;
+    bottom: -50px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-primary) 7%, transparent);
+    pointer-events: none;
+  }
+}
+
+.specialites-page__bodymap-info {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.specialites-page__bodymap-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+  /* Point pulsant */
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: bmDotPulse 2s ease-in-out infinite;
+  }
+}
+
+.specialites-page__bodymap-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-inverse);
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.specialites-page__bodymap-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 380px;
+}
+
+.specialites-page__bodymap-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    gap var(--transition);
+
+  &:hover {
+    background: color-mix(in srgb, var(--color-primary) 80%, #fff);
+    transform: translateY(-2px);
+    gap: 12px;
+  }
+}
+
+@keyframes bmDotPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.6);
+  }
+}
+
+@media (max-width: 600px) {
+  .specialites-page__bodymap-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .specialites-page__bodymap-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,63 @@
+/* ─────────────────────────────────────────────
+   reveal.css
+   Classes d'animation scroll — importé UNE FOIS
+   dans main.jsx (ou index.css).
+
+   Principe :
+   - [data-reveal] définit l'état initial (invisible / décalé)
+   - .revealed applique l'état final (visible / en place)
+   - transition-delay est injecté inline par useScrollReveal.js
+
+   Variantes via data-reveal="fade-up" (défaut), "fade-left",
+   "fade-right", "scale", "fade" (sans déplacement).
+───────────────────────────────────────────── */
+
+/* ── État initial commun ── */
+[data-reveal] {
+  transition-property: opacity, transform;
+  transition-duration: 550ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+/* ── Variantes initiales ── */
+[data-reveal],
+[data-reveal="fade-up"] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+[data-reveal="fade-left"] {
+  opacity: 0;
+  transform: translateX(-28px);
+}
+
+[data-reveal="fade-right"] {
+  opacity: 0;
+  transform: translateX(28px);
+}
+
+[data-reveal="scale"] {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+[data-reveal="fade"] {
+  opacity: 0;
+  transform: none;
+}
+
+/* ── État final (ajouté par IntersectionObserver) ── */
+[data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Respect des préférences d'accessibilité ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

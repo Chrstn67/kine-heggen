@@ -5,6 +5,7 @@ import SpecialitesPage from "./pages/SpecialitesPage.jsx";
 import SpecialiteDetailPage from "./pages/SpecialiteDetailPage.jsx";
 import EquipePage from "./pages/EquipePage.jsx";
 import KineDetailPage from "./pages/KineDetailPage.jsx";
+import BodyMap from "./pages/BodyMap.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 
 /*
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/specialites/:id" element={<SpecialiteDetailPage />} />
         <Route path="/equipe" element={<EquipePage />} />
         <Route path="/equipe/:slug" element={<KineDetailPage />} />
+        <Route path="/body-map" element={<BodyMap />} />
         <Route path="/contact" element={<ContactPage />} />
 
         {/* Catch-all : toute URL inconnue ramène à l'accueil */}

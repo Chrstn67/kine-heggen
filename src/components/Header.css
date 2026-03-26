@@ -1,3 +1,5 @@
+/* ─── Header.css — avec badge statut cabinet ─── */
+
 .header {
   position: sticky;
   top: 0;
@@ -11,6 +13,7 @@
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    gap: 12px;
   }
 
   & .header__logo {
@@ -37,8 +40,57 @@
   & .header__logo-text {
     font-family: var(--font-heading);
     font-size: 20px;
-    font-weight: normal; /* reset <strong> default bold */
+    font-weight: normal;
     color: var(--color-text);
+  }
+
+  /* ── Badge statut ouvert / fermé ── */
+  & .header__status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    /* Entrée en douceur au montage */
+    animation: badgeFadeIn 0.6s ease both;
+  }
+
+  & .header__status-badge--open {
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+    color: var(--color-primary);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
+  }
+
+  & .header__status-badge--closed {
+    background: color-mix(in srgb, var(--color-text-light) 10%, transparent);
+    color: var(--color-text-light);
+    border: 1px solid
+      color-mix(in srgb, var(--color-text-light) 20%, transparent);
+  }
+
+  /* Point lumineux */
+  & .header__status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  & .header__status-badge--open .header__status-dot {
+    background: var(--color-primary);
+    /* Pulsation uniquement quand ouvert */
+    animation: statusPulse 2.4s ease-in-out infinite;
+  }
+
+  & .header__status-badge--closed .header__status-dot {
+    background: var(--color-text-light);
+  }
+
+  & .header__status-label {
+    line-height: 1;
   }
 
   & .header__nav-list {
@@ -105,8 +157,38 @@
   }
 }
 
+/* ── Keyframes ── */
+@keyframes statusPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.65);
+  }
+}
+
+@keyframes badgeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ── */
 @media (max-width: 790px) {
   .header {
+    /* Cache le badge sur très petit écran pour économiser l'espace */
+    & .header__status-badge {
+      display: none;
+    }
+
     & .header__cta--desktop {
       display: none;
     }
@@ -182,7 +264,7 @@
 
     & .header__logo-text {
       font-size: 17px;
-      font-weight: normal; /* reset <strong> */
+      font-weight: normal;
     }
   }
 }
