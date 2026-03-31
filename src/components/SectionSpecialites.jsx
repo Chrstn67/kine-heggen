@@ -24,6 +24,11 @@ const iconMap = {
 export default function SectionSpecialites() {
   const ref = useScrollReveal();
 
+  // Sort specialties alphabetically by name
+  const sortedSpecialites = [...specialites].sort((a, b) =>
+    a.nom.localeCompare(b.nom),
+  );
+
   return (
     <section className="home-specs" aria-labelledby="specs-heading" ref={ref}>
       <div className="home-specs__inner container">
@@ -41,7 +46,7 @@ export default function SectionSpecialites() {
         </div>
 
         <ul className="home-specs__grid" data-reveal-stagger="70">
-          {specialites.map((spec) => {
+          {sortedSpecialites.map((spec) => {
             const Icon = iconMap[spec.icone] || Activity;
             return (
               <li key={spec.id} data-reveal>

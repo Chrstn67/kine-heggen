@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
+import ScrollToTopButton from "./ScrollToTopButton.jsx";
 import "./Layout.css";
 
 export default function Layout() {
@@ -18,6 +19,8 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+
+      <ScrollToTopButton />
     </div>
   );
 }

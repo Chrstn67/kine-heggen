@@ -43,13 +43,20 @@
   & .home-specs__grid {
     list-style: none;
     padding: 0;
-    margin: 0; /* reset <ul> defaults */
+    margin: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    align-items: stretch; /* ← */
+  }
+
+  /* Le <li> doit prendre toute la hauteur de la cellule */
+  & .home-specs__grid > li {
+    display: flex; /* ← */
   }
 
   & .home-specs__card {
+    flex: 1; /* ← s'étire pour remplir le <li> */
     display: flex;
     flex-direction: column;
     padding: 32px 28px;

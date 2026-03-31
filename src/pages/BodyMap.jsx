@@ -54,16 +54,16 @@ const BACK_COORDS = {
   clavicule: { x: 35, y: 12.5 },
   "epaule-articulation": { x: 28, y: 17 },
   coiffe: { x: 30, y: 16 },
-  deltoid: { x: 26, y: 15 },
-  scapula: { x: 33, y: 19 },
+  deltoid: { x: 30, y: 14 },
+  scapula: { x: 36, y: 19 },
   humerus: { x: 26, y: 26 },
   biceps: { x: 27, y: 28 },
   triceps: { x: 27, y: 30 },
-  coude: { x: 25, y: 33 },
+  coude: { x: 27, y: 32 },
 
   // Avant-bras & Main
   "radius-ulna": { x: 24, y: 38 },
-  poignet: { x: 21, y: 44 },
+  poignet: { x: 23, y: 45 },
   "main-carpe": { x: 21, y: 48 },
 
   // Thorax & Dos
@@ -76,12 +76,13 @@ const BACK_COORDS = {
   reins: { x: 42, y: 35 },
   aorte: { x: 50, y: 27 },
   "canal-thoracique": { x: 48, y: 25 },
+  "plancher-pelvien": { x: 50, y: 46 },
 
   // Bassin & Hanche
   "sacrum-ilium": { x: 50, y: 43 },
   "sacro-iliaque": { x: 42, y: 44 },
   fessiers: { x: 35, y: 40 },
-  hanche: { x: 38, y: 49 },
+  hanche: { x: 31, y: 45 },
 
   // Cuisse
   femur: { x: 35, y: 55 },
@@ -100,6 +101,7 @@ const BACK_COORDS = {
   cheville: { x: 35, y: 87 },
   "ligaments-cheville": { x: 33, y: 88 },
   "pied-tarse": { x: 35, y: 92 },
+  peroniers: { x: 30, y: 80 },
 
   // Veineux
   "reseau-veineux-mi": { x: 34, y: 76 },

@@ -197,6 +197,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: fixed; /* ← sort du header */
+      bottom: 24px; /* ← ancré en bas */
+      left: 24px; /* ← ancré à gauche */
+      z-index: 200; /* ← au-dessus de tout */
+      width: 52px;
+      height: 52px;
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-radius: 50%;
+      box-shadow: var(--shadow-lg);
+      padding: 0;
+      transition:
+        background var(--transition),
+        transform var(--transition);
+
+      &:hover {
+        background: var(--color-primary-dark);
+        transform: scale(1.08);
+      }
     }
 
     & .header__nav-list {

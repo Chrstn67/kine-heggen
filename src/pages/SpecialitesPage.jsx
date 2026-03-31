@@ -1,4 +1,7 @@
+// SpecialitesPage.jsx
+
 import { Link } from "react-router-dom";
+import { useState, useMemo } from "react";
 import {
   ArrowRight,
   Bone,
@@ -7,6 +10,9 @@ import {
   Wind,
   Shield,
   Baby,
+  SlidersHorizontal,
+  ChevronDown,
+  X,
 } from "lucide-react";
 import { specialites } from "../data/specialites.js";
 import { kines } from "../data/kines.js";
@@ -23,8 +29,47 @@ const iconMap = {
   baby: Baby,
 };
 
+/** Normalise un id en string — évite "1" !== 1 */
+const toStr = (v) => String(v ?? "");
+
 export default function SpecialitesPage() {
   const ref = useScrollReveal();
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [showFilters, setShowFilters] = useState(false);
+
+  const sortedSpecs = useMemo(
+    () => [...specialites].sort((a, b) => a.nom.localeCompare(b.nom, "fr")),
+    [],
+  );
+
+  const gridResults = useMemo(() => {
+    if (activeFilter === "all") return sortedSpecs;
+    // ✅ Fix : on normalise les deux côtés en string
+    return sortedSpecs.filter((spec) =>
+      spec.kineIds.map(toStr).includes(toStr(activeFilter)),
+    );
+  }, [sortedSpecs, activeFilter]);
+
+  const uniqueKines = useMemo(() => {
+    const ids = new Set(sortedSpecs.flatMap((s) => s.kineIds.map(toStr)));
+    return kines.filter((k) => ids.has(toStr(k.id)));
+  }, [sortedSpecs]);
+
+  /** Compteur par kiné calculé sur la liste complète (pas la liste filtrée) */
+  const countByKine = useMemo(() => {
+    const map = {};
+    for (const k of uniqueKines) {
+      const kid = toStr(k.id);
+      map[kid] = sortedSpecs.filter((s) =>
+        s.kineIds.map(toStr).includes(kid),
+      ).length;
+    }
+    return map;
+  }, [sortedSpecs, uniqueKines]);
+
+  function clearFilter() {
+    setActiveFilter("all");
+  }
 
   return (
     <>
@@ -49,6 +94,7 @@ export default function SpecialitesPage() {
         <h2 id="specialites-list-heading" className="sr-only">
           Liste des spécialités
         </h2>
+
         <div className="specialites-page__inner container">
           {/* ── Bandeau Body Map ── */}
           <div className="specialites-page__bodymap-banner" data-reveal>
@@ -74,85 +120,245 @@ export default function SpecialitesPage() {
             </Link>
           </div>
 
-          <ul className="specialites-page__grid" data-reveal-stagger="70">
-            {specialites.map((spec) => {
-              const Icon = iconMap[spec.icone] || Activity;
-              const kineIds = Array.isArray(spec.kineIds)
-                ? spec.kineIds
-                : [spec.kineIds];
-              const kinesList = kines.filter((k) => kineIds.includes(k.id));
+          {/* ── Filtres praticiens ── */}
+          <div className="specialites-search" data-reveal>
+            <div className="specialites-search__top">
+              <div className="specialites-search__field-wrap">
+                <label className="specialites-search__label">
+                  Filtrer par praticien
+                </label>
+                <div className="specialites-search__input-row">
+                  <button
+                    className={[
+                      "specialites-search__filter-toggle",
+                      showFilters ? "is-open" : "",
+                      activeFilter !== "all" ? "has-active" : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    onClick={() => setShowFilters((v) => !v)}
+                    aria-expanded={showFilters}
+                    style={{ width: "100%", justifyContent: "space-between" }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "7px",
+                      }}
+                    >
+                      <SlidersHorizontal size={16} aria-hidden="true" />
+                      <span>Filtrer par praticien</span>
+                    </div>
+                    {activeFilter !== "all" && (
+                      <span className="specialites-search__filter-badge">
+                        1
+                      </span>
+                    )}
+                    <ChevronDown
+                      size={14}
+                      className="specialites-search__chevron"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
 
-              return (
-                <li key={spec.id} data-reveal>
-                  <article className="specialites-page__card">
-                    <div className="specialites-page__card-top">
-                      <div
-                        className="specialites-page__icon"
+            {showFilters && (
+              <div
+                className="specialites-search__filters"
+                role="group"
+                aria-label="Filtrer par praticien"
+              >
+                <span className="specialites-search__filters-label">
+                  Praticien :
+                </span>
+
+                {/* Chip "Tous" */}
+                <button
+                  className={`specialites-search__filter-chip${activeFilter === "all" ? " is-active" : ""}`}
+                  onClick={() => setActiveFilter("all")}
+                >
+                  <span className="specialites-search__filter-chip-all">
+                    Tous
+                  </span>
+                  <span className="specialites-search__filter-count">
+                    {sortedSpecs.length}
+                  </span>
+                </button>
+
+                {/* Chips par kiné avec compteur */}
+                {uniqueKines.map((k) => {
+                  const kid = toStr(k.id);
+                  return (
+                    <button
+                      key={k.id}
+                      className={`specialites-search__filter-chip${toStr(activeFilter) === kid ? " is-active" : ""}`}
+                      onClick={() => setActiveFilter(kid)}
+                    >
+                      <img
+                        src={k.photo}
+                        alt=""
                         aria-hidden="true"
-                      >
-                        <Icon size={28} aria-hidden="true" />
-                      </div>
-                      <h3 className="specialites-page__card-title">
-                        {spec.nom}
-                      </h3>
-                      <p className="specialites-page__card-desc">
-                        {spec.resume}
-                      </p>
-                    </div>
+                        className="specialites-search__filter-avatar"
+                      />
+                      {k.prenom}
+                      <span className="specialites-search__filter-count">
+                        {countByKine[kid] ?? 0}
+                      </span>
+                    </button>
+                  );
+                })}
 
-                    <div className="specialites-page__card-bottom">
-                      {kinesList.length > 0 && (
+                {activeFilter !== "all" && (
+                  <button
+                    className="specialites-search__filter-reset"
+                    onClick={clearFilter}
+                    aria-label="Réinitialiser le filtre"
+                  >
+                    <X size={13} />
+                    Réinitialiser
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Compteur + tag actif */}
+            <div className="specialites-search__status">
+              <p className="specialites-search__count" aria-live="polite">
+                <strong>{gridResults.length}</strong> spécialité
+                {gridResults.length > 1 ? "s" : ""} disponible
+                {gridResults.length > 1 ? "s" : ""}
+              </p>
+              {activeFilter !== "all" && (
+                <div className="specialites-search__active-tags">
+                  <span className="specialites-search__active-tag">
+                    {
+                      uniqueKines.find(
+                        (k) => toStr(k.id) === toStr(activeFilter),
+                      )?.prenom
+                    }
+                    <button
+                      onClick={clearFilter}
+                      aria-label="Supprimer ce filtre"
+                      className="specialites-search__active-tag-remove"
+                    >
+                      <X size={11} />
+                    </button>
+                  </span>
+                  <button
+                    className="specialites-search__reset-all"
+                    onClick={clearFilter}
+                  >
+                    Tout effacer
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── Grille ── */}
+          {gridResults.length === 0 ? (
+            <div className="specialites-page__empty" data-reveal>
+              <span className="specialites-page__empty-icon" aria-hidden="true">
+                🔍
+              </span>
+              <p className="specialites-page__empty-title">
+                Aucune spécialité disponible pour ce praticien.
+              </p>
+              <p className="specialites-page__empty-hint">
+                <button
+                  onClick={clearFilter}
+                  className="specialites-page__empty-reset"
+                >
+                  Réinitialiser le filtre
+                </button>
+              </p>
+            </div>
+          ) : (
+            <ul
+              className="specialites-page__grid"
+              data-reveal-stagger="70"
+              // ✅ Clé sur le filtre actif → React remonte les <li>, déclenchant l'animation CSS
+              key={activeFilter}
+            >
+              {gridResults.map((spec) => {
+                const Icon = iconMap[spec.icone] || Activity;
+                // ✅ Fix : normalisation des deux côtés
+                const kinesList = kines.filter((k) =>
+                  spec.kineIds.map(toStr).includes(toStr(k.id)),
+                );
+                return (
+                  <li key={spec.id} data-reveal>
+                    <article className="specialites-page__card">
+                      <div className="specialites-page__card-top">
                         <div
-                          className="specialites-page__kine"
-                          aria-label="Praticien(s)"
+                          className="specialites-page__icon"
+                          aria-hidden="true"
                         >
-                          {kinesList.length === 1 ? (
-                            <>
-                              <img
-                                src={kinesList[0].photo}
-                                alt={`${kinesList[0].prenom} ${kinesList[0].nom}`}
-                                className="specialites-page__kine-photo"
-                                loading="lazy"
-                              />
-                              <span className="specialites-page__kine-name">
-                                {kinesList[0].prenom}
-                              </span>
-                            </>
-                          ) : (
-                            <div className="specialites-page__kines-multiple">
-                              <div className="specialites-page__kine-photos">
-                                {kinesList.map((kine) => (
-                                  <img
-                                    key={kine.id}
-                                    src={kine.photo}
-                                    alt={`${kine.prenom} ${kine.nom}`}
-                                    className="specialites-page__kine-photo-multi"
-                                    loading="lazy"
-                                  />
-                                ))}
-                              </div>
-                              <span className="specialites-page__kine-name">
-                                {kinesList.map((k) => k.prenom).join(" & ")}
-                              </span>
-                            </div>
-                          )}
+                          <Icon size={28} aria-hidden="true" />
                         </div>
-                      )}
-
-                      <Link
-                        to={`/specialites/${spec.slug}`}
-                        className="specialites-page__link"
-                        aria-label={`En savoir plus sur ${spec.nom}`}
-                      >
-                        <span aria-hidden="true">En savoir plus</span>
-                        <ArrowRight size={16} aria-hidden="true" />
-                      </Link>
-                    </div>
-                  </article>
-                </li>
-              );
-            })}
-          </ul>
+                        <h3 className="specialites-page__card-title">
+                          {spec.nom}
+                        </h3>
+                        <p className="specialites-page__card-desc">
+                          {spec.resume}
+                        </p>
+                      </div>
+                      <div className="specialites-page__card-bottom">
+                        {kinesList.length > 0 && (
+                          <div
+                            className="specialites-page__kine"
+                            aria-label="Praticien(s)"
+                          >
+                            {kinesList.length === 1 ? (
+                              <>
+                                <img
+                                  src={kinesList[0].photo}
+                                  alt={`${kinesList[0].prenom} ${kinesList[0].nom}`}
+                                  className="specialites-page__kine-photo"
+                                  loading="lazy"
+                                />
+                                <span className="specialites-page__kine-name">
+                                  {kinesList[0].prenom}
+                                </span>
+                              </>
+                            ) : (
+                              <div className="specialites-page__kines-multiple">
+                                <div className="specialites-page__kine-photos">
+                                  {kinesList.map((kine) => (
+                                    <img
+                                      key={kine.id}
+                                      src={kine.photo}
+                                      alt={`${kine.prenom} ${kine.nom}`}
+                                      className="specialites-page__kine-photo-multi"
+                                      loading="lazy"
+                                    />
+                                  ))}
+                                </div>
+                                <span className="specialites-page__kine-name">
+                                  {kinesList.map((k) => k.prenom).join(" & ")}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        <Link
+                          to={`/specialites/${spec.slug}`}
+                          className="specialites-page__link"
+                          aria-label={`En savoir plus sur ${spec.nom}`}
+                        >
+                          <span aria-hidden="true">En savoir plus</span>
+                          <ArrowRight size={16} aria-hidden="true" />
+                        </Link>
+                      </div>
+                    </article>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </section>
     </>

@@ -1,4 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
+import { useEffect, useMemo } from "react";
 import {
   ArrowLeft,
   Check,
@@ -27,16 +28,30 @@ const iconMap = {
 
 export default function SpecialiteDetailPage() {
   const { id } = useParams();
-  const spec = specialites.find((s) => s.slug === id);
+
   const revealMain = useScrollReveal();
   const revealRelated = useScrollReveal();
+  const revealTarifs = useScrollReveal();
+  const revealBienfaits = useScrollReveal();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [id]);
+
+  const spec = specialites.find((s) => s.slug === id);
+
+  const autresSpecs = useMemo(
+    () => specialites.filter((s) => s.slug !== id).slice(0, 3),
+    [id],
+  );
 
   if (!spec) return <Navigate to="/specialites" replace />;
 
   const kineIds = Array.isArray(spec.kineIds) ? spec.kineIds : [spec.kineIds];
-  const kinesList = kines.filter((k) => kineIds.includes(k.id));
+  const kinesList = kines.filter((k) =>
+    kineIds.map(String).includes(String(k.id)),
+  );
   const Icon = iconMap[spec.icone] || Activity;
-  const autresSpecs = specialites.filter((s) => s.slug !== id).slice(0, 3);
 
   return (
     <article className="spec-detail">
@@ -48,7 +63,6 @@ export default function SpecialiteDetailPage() {
             <span>Toutes les spécialités</span>
           </Link>
 
-          {/* Icône avec halo animé */}
           <div className="spec-detail__icon-wrap" aria-hidden="true">
             <div className="spec-detail__icon-halo" aria-hidden="true" />
             <Icon size={32} />
@@ -57,7 +71,6 @@ export default function SpecialiteDetailPage() {
           <h1 className="spec-detail__title">{spec.nom}</h1>
           <p className="spec-detail__intro">{spec.description}</p>
 
-          {/* Badges métadonnées animés */}
           <div className="spec-detail__meta-badges" aria-hidden="true">
             <span className="spec-detail__meta-badge spec-detail__meta-badge--1">
               <Check size={12} />
@@ -111,11 +124,10 @@ export default function SpecialiteDetailPage() {
               <h2 id="bienfaits-heading" className="spec-detail__h2">
                 Les bienfaits
               </h2>
-              {/* ul avec stagger sur chaque bienfait */}
               <ul
                 className="spec-detail__bienfaits"
                 data-reveal-stagger="55"
-                ref={useScrollReveal()}
+                ref={revealBienfaits}
               >
                 {spec.bienfaits.map((b, i) => (
                   <li key={i} className="spec-detail__bienfait" data-reveal>
@@ -125,6 +137,34 @@ export default function SpecialiteDetailPage() {
                 ))}
               </ul>
             </section>
+
+            {spec.tarif && (
+              <section
+                aria-labelledby="tarifs-heading"
+                data-reveal
+                data-reveal-delay="200"
+              >
+                <h2 id="tarifs-heading" className="spec-detail__h2">
+                  Tarifs
+                </h2>
+                {Array.isArray(spec.tarif) ? (
+                  <ul
+                    className="spec-detail__tarifs"
+                    data-reveal-stagger="55"
+                    ref={revealTarifs}
+                  >
+                    {spec.tarif.map((t, i) => (
+                      <li key={i} className="spec-detail__tarif" data-reveal>
+                        <Check size={16} aria-hidden="true" />
+                        <span>{t}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="spec-detail__tarif-single">{spec.tarif}</p>
+                )}
+              </section>
+            )}
           </div>
 
           {/* Sidebar */}

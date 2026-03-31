@@ -40,7 +40,6 @@
     border-radius: var(--radius-md);
     margin-bottom: 24px;
     box-shadow: var(--shadow-sm);
-    /* Entrée au montage */
     animation: iconPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 
@@ -56,7 +55,6 @@
     font-size: clamp(32px, 4vw, 44px);
     color: var(--color-text);
     margin-bottom: 16px;
-    /* Entrée décalée */
     animation: fadeUp 0.5s 0.1s ease both;
   }
 
@@ -149,7 +147,7 @@
     color: var(--color-text-light);
   }
 
-  /* Bienfaits — grille avec items individuels animables */
+  /* ── Bienfaits ── */
   & .spec-detail__bienfaits {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -192,6 +190,83 @@
     }
   }
 
+  /* ── Tarifs ── */
+  & .spec-detail__tarifs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  & .spec-detail__tarif {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-text);
+    transition:
+      border-color var(--transition),
+      background var(--transition),
+      transform var(--transition);
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+      background: color-mix(
+        in srgb,
+        var(--color-primary) 4%,
+        var(--color-bg-alt)
+      );
+      transform: translateY(-2px);
+    }
+
+    & svg {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Si un seul item : il prend toute la largeur */
+    &:only-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Cas où tarif est une string simple */
+  & .spec-detail__tarif-single {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    background: var(--color-primary-light);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-primary);
+
+    &::before {
+      content: "€";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+  }
+
   /* ── Sidebar ── */
   & .spec-detail__sidebar {
     display: flex;
@@ -228,7 +303,6 @@
     gap: 12px;
   }
 
-  /* Lien kiné avec photo + overlay hover */
   & .spec-detail__kine-link {
     display: flex;
     align-items: center;
@@ -484,6 +558,10 @@
     }
 
     & .spec-detail__bienfaits {
+      grid-template-columns: 1fr;
+    }
+
+    & .spec-detail__tarifs {
       grid-template-columns: 1fr;
     }
   }

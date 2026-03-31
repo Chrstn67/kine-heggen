@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Mail } from "lucide-react";
 import { kines } from "../data/kines.js";
-import { specialites } from "../data/specialites.js";
 import { useScrollReveal } from "../hooks/UseScrollReveal";
+import { getSpecialitesByKine } from "../utils/kineUtils.js";
 import PageHeader from "../components/PageHeader.jsx";
 import "./EquipePage.css";
 
@@ -36,9 +36,7 @@ export default function EquipePage() {
         </h2>
         <div className="equipe-page__inner container" data-reveal-stagger="120">
           {kines.map((kine) => {
-            const kineSpecs = specialites.filter((s) =>
-              kine.specialites.includes(s.id),
-            );
+            const kineSpecs = getSpecialitesByKine(kine.id);
             return (
               <article key={kine.id} className="equipe-page__card" data-reveal>
                 <div className="equipe-page__photo-col">
@@ -82,6 +80,7 @@ export default function EquipePage() {
                       <span>Voir le profil complet</span>
                       <ArrowRight size={16} aria-hidden="true" />
                     </Link>
+
                     <a
                       href={`mailto:${kine.email}`}
                       className="equipe-page__btn equipe-page__btn--secondary"
