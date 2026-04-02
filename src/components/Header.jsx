@@ -8,6 +8,7 @@ const navLinks = [
   { to: "/", label: "Accueil" },
   { to: "/equipe", label: "L'équipe" },
   { to: "/specialites", label: "Nos soins" },
+  { to: "/tarifs-generaux", label: "Tarifs généraux" },
   { to: "/contact", label: "Contact" },
 ];
 

@@ -6,6 +6,7 @@ import SpecialiteDetailPage from "./pages/SpecialiteDetailPage.jsx";
 import EquipePage from "./pages/EquipePage.jsx";
 import KineDetailPage from "./pages/KineDetailPage.jsx";
 import BodyMap from "./pages/BodyMap.jsx";
+import TarifsGeneraux from "./pages/Tarifs.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 
 /*
@@ -20,6 +21,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/tarifs-generaux" element={<TarifsGeneraux />} />
         <Route path="/specialites" element={<SpecialitesPage />} />
         <Route path="/specialites/:id" element={<SpecialiteDetailPage />} />
         <Route path="/equipe" element={<EquipePage />} />
