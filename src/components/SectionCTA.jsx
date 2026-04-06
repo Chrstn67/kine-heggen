@@ -16,7 +16,7 @@ export default function SectionCTA() {
           </h2>
           <p className="cta__description">
             {
-              "N'hésitez pas à nous contacter pour prendre rendez-vous ou pour toute question sur nos prises en charge. Nous sommes à votre écoute."
+              "Contactez-nous pour prendre rendez-vous ou pour toute question sur nos prises en charge. Nous sommes à votre écoute."
             }
           </p>
           <Link to="/contact" className="cta__btn">

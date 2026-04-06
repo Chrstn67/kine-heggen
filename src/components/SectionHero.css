@@ -1,10 +1,10 @@
-/* ─── SectionHero.css — avec badges animés ─── */
+/* ─── SectionHero.css ─── */
 
 .hero {
   position: relative;
   min-height: clamp(500px, 80vh, 720px);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   overflow: hidden;
 
   & .hero__bg {
@@ -28,20 +28,32 @@
     );
   }
 
-  & .hero__content {
+  & .hero__body {
     position: relative;
     z-index: 1;
-    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding-top: 48px;
+    padding-bottom: 0;
+  }
+
+  & .hero__content {
+    max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
     padding-bottom: 48px;
   }
 
-  /* ── Rangée de badges ── */
+  /* ── Badges ── */
   & .hero__badges {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
     margin-bottom: 20px;
+    list-style: none;
+    padding: 0;
   }
 
   & .hero__badge {
@@ -54,7 +66,6 @@
     font-weight: 600;
     letter-spacing: 0.02em;
     backdrop-filter: blur(4px);
-    /* Entrée décalée par nth-child */
     opacity: 0;
     transform: translateY(-8px);
     animation: heroBadgeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -64,7 +75,6 @@
     }
   }
 
-  /* Délais échelonnés */
   & .hero__badge:nth-child(1) {
     animation-delay: 0.15s;
   }
@@ -75,7 +85,6 @@
     animation-delay: 0.41s;
   }
 
-  /* Variantes de couleur */
   & .hero__badge--convention {
     background: rgba(29, 158, 117, 0.25);
     color: #9fe1cb;
@@ -114,12 +123,12 @@
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.85);
     margin-bottom: 32px;
-    max-width: 560px;
   }
 
   & .hero__actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
   }
 
@@ -133,6 +142,11 @@
     border-radius: var(--radius-full);
     transition: all var(--transition);
     text-decoration: none;
+
+    &:focus-visible {
+      outline: 2px solid #9fe1cb;
+      outline-offset: 3px;
+    }
 
     &.hero__btn--primary {
       background: var(--color-primary);
@@ -156,6 +170,177 @@
       }
     }
   }
+
+  /* ════════════════════════════════════
+     GALERIE — wrapper commun
+  ════════════════════════════════════ */
+  & .hero__gallery {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    border: none;
+    padding: 0;
+  }
+
+  /* ════════════════════════════════════
+     FOCUS GALLERY — desktop
+  ════════════════════════════════════ */
+  & .hero__focus {
+    display: grid;
+    grid-template-columns: 1fr 72px;
+    gap: 4px;
+    height: clamp(260px, 38vw, 460px);
+  }
+
+  & .hero__focus-main {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  & .hero__focus-main img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.38s ease;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Fondu 4 bords vers la couleur du hero */
+  & .hero__focus-main::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(26, 46, 42, 0.85) 0%, transparent 30%),
+      linear-gradient(to bottom, rgba(26, 46, 42, 0.6) 0%, transparent 25%),
+      linear-gradient(to right, rgba(26, 46, 42, 0.5) 0%, transparent 20%),
+      linear-gradient(to left, rgba(26, 46, 42, 0.5) 0%, transparent 20%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  & .hero__focus-gradient {
+    display: none;
+  }
+
+  & .hero__focus-caption {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    right: 16px;
+    z-index: 2;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+  }
+
+  & .hero__focus-counter {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    z-index: 2;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(159, 225, 203, 0.9);
+    background: rgba(0, 0, 0, 0.28);
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+  }
+
+  /* ── Colonne miniatures ── */
+  & .hero__focus-thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  & .hero__focus-thumb {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+    transition: opacity 0.25s;
+
+    /* Fondu bords miniature */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(26, 46, 42, 0.7) 0%, transparent 35%),
+        linear-gradient(to right, rgba(26, 46, 42, 0.4) 0%, transparent 25%),
+        linear-gradient(to left, rgba(26, 46, 42, 0.4) 0%, transparent 25%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Bordure active */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 2px solid transparent;
+      transition: border-color 0.25s;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &[aria-current="true"]::after {
+      border-color: #9fe1cb;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #9fe1cb;
+      outline-offset: 2px;
+    }
+  }
+
+  & .hero__focus-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  & .hero__focus-thumb-num {
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    z-index: 3;
+    font-size: 9px;
+    font-weight: 700;
+    color: rgba(159, 225, 203, 0.8);
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  & .hero__focus-thumb[aria-current="true"] .hero__focus-thumb-num {
+    opacity: 0;
+  }
+
+  /* ── Carousel mobile masqué par défaut ── */
+  & .hero__carousel {
+    display: none;
+  }
 }
 
 /* ── Keyframes ── */
@@ -170,17 +355,198 @@
   }
 }
 
-/* ── Responsive ── */
-@media (max-width: 600px) {
+/* ════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════ */
+@media (max-width: 768px) {
   .hero {
-    min-height: 520px;
+    min-height: unset;
 
     & .hero__actions {
       flex-direction: column;
+      align-items: stretch;
 
       & .hero__btn {
         justify-content: center;
       }
     }
+
+    & .hero__focus {
+      display: none;
+    }
+
+    & .hero__carousel {
+      display: block;
+    }
+  }
+}
+
+/* ════════════════════════════════════
+   CAROUSEL MOBILE
+════════════════════════════════════ */
+.hero__carousel-track-wrap {
+  position: relative;
+  height: clamp(220px, 52vw, 320px);
+  overflow: hidden;
+  background: transparent;
+}
+
+.hero__carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero__carousel-slide {
+  flex: 0 0 100%;
+  position: relative;
+  height: 100%;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Fondu 4 bords sur chaque slide */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(26, 46, 42, 0.85) 0%, transparent 30%),
+      linear-gradient(to bottom, rgba(26, 46, 42, 0.5) 0%, transparent 20%),
+      linear-gradient(to right, rgba(26, 46, 42, 0.4) 0%, transparent 20%),
+      linear-gradient(to left, rgba(26, 46, 42, 0.4) 0%, transparent 20%);
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+.hero__carousel-gradient {
+  display: none;
+}
+
+.hero__carousel-caption {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.hero__carousel-counter {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(159, 225, 203, 0.9);
+  background: rgba(0, 0, 0, 0.28);
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+
+.hero__carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #9fe1cb;
+    outline-offset: 2px;
+  }
+
+  &.hero__carousel-btn--prev {
+    left: 10px;
+  }
+  &.hero__carousel-btn--next {
+    right: 10px;
+  }
+}
+
+/* ── Barre miniatures mobile ── */
+.hero__carousel-minibar {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0 14px;
+  list-style: none;
+  margin: 0;
+}
+
+.hero__carousel-mini {
+  flex: 1;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 4px;
+  transition: opacity 0.25s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: border-color 0.25s;
+    pointer-events: none;
+  }
+
+  &[aria-current="true"]::after {
+    border-color: #9fe1cb;
+  }
+
+  &:not([aria-current="true"]) {
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #9fe1cb;
+    outline-offset: 2px;
+  }
+
+  & img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__focus-main img,
+  .hero__carousel-track {
+    transition: none;
   }
 }
