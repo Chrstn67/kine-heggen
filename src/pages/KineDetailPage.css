@@ -127,7 +127,7 @@
     flex-direction: column;
     gap: 16px;
     padding-left: 0;
-    list-style: none; /* reset <ol> default */
+    list-style: none;
     margin: 0;
 
     & li {
@@ -150,7 +150,7 @@
   }
 
   & .kine-detail__quote {
-    margin: 0; /* reset <figure> default margin: 1em 40px */
+    margin: 0;
     padding: 36px;
     background: var(--color-accent-light);
     border-radius: var(--radius-lg);
@@ -166,7 +166,7 @@
       font-size: 20px;
       line-height: 1.6;
       color: var(--color-text);
-      margin: 0 0 12px 0; /* reset <blockquote> default margin */
+      margin: 0 0 12px 0;
     }
 
     & cite {
@@ -204,13 +204,59 @@
     border-radius: var(--radius-lg);
   }
 
+  /* Scroll pour les spécialités - max hauteur 400px, scroll si plus de 4 éléments */
   & .kine-detail__specs-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    list-style: none; /* reset <ul> */
+    list-style: none;
     padding: 0;
     margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  /* Personnalisation de la scrollbar */
+  & .kine-detail__specs-list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  & .kine-detail__specs-list::-webkit-scrollbar-track {
+    background: var(--color-border-light);
+    border-radius: 3px;
+  }
+
+  & .kine-detail__specs-list::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 3px;
+  }
+
+  & .kine-detail__specs-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+
+  /* Indicateur de scroll (optionnel) - visible seulement si contenu dépasse */
+  & .kine-detail__specs-card {
+    position: relative;
+  }
+
+  & .kine-detail__specs-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--color-bg-alt));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+
+  & .kine-detail__specs-card.has-scroll::after {
+    opacity: 1;
   }
 
   & .kine-detail__spec-item {
@@ -269,6 +315,15 @@
     color: var(--color-text-light);
     flex-shrink: 0;
     margin-top: 12px;
+  }
+
+  & .kine-detail__no-specs {
+    font-size: 14px;
+    color: var(--color-text-light);
+    text-align: center;
+    padding: 20px;
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
   }
 
   & .kine-detail__contact-card {

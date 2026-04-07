@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import {
   ArrowLeft,
   Check,
@@ -11,6 +11,10 @@ import {
   Wind,
   Shield,
   Baby,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Images,
 } from "lucide-react";
 import { specialites } from "../data/specialites.js";
 import { kines } from "../data/kines.js";
@@ -26,6 +30,177 @@ const iconMap = {
   baby: Baby,
 };
 
+/* ════════════════════════════════════
+   Lightbox
+════════════════════════════════════ */
+function Lightbox({ images, startIndex, onClose }) {
+  const [index, setIndex] = useState(startIndex);
+
+  const prev = useCallback(
+    () => setIndex((i) => (i - 1 + images.length) % images.length),
+    [images.length],
+  );
+  const next = useCallback(
+    () => setIndex((i) => (i + 1) % images.length),
+    [images.length],
+  );
+
+  /* Navigation clavier */
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose, prev, next]);
+
+  const img = images[index];
+
+  return (
+    <div
+      className="spec-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Visionneuse — ${img.alt}`}
+      onClick={onClose}
+    >
+      <div className="spec-lb__inner" onClick={(e) => e.stopPropagation()}>
+        {/* Barre haute */}
+        <div className="spec-lb__bar">
+          <span className="spec-lb__counter" aria-live="polite">
+            {index + 1} / {images.length}
+          </span>
+          {img.caption && (
+            <span className="spec-lb__caption">{img.caption}</span>
+          )}
+          <button
+            className="spec-lb__close"
+            onClick={onClose}
+            aria-label="Fermer la visionneuse"
+            type="button"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Image */}
+        <div className="spec-lb__img-wrap">
+          <img
+            src={img.src}
+            alt={img.alt}
+            className="spec-lb__img"
+            draggable="false"
+          />
+        </div>
+
+        {/* Navigation — uniquement si plusieurs images */}
+        {images.length > 1 && (
+          <>
+            <button
+              className="spec-lb__nav spec-lb__nav--prev"
+              onClick={prev}
+              aria-label="Image précédente"
+              type="button"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              className="spec-lb__nav spec-lb__nav--next"
+              onClick={next}
+              aria-label="Image suivante"
+              type="button"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Points */}
+            <ol className="spec-lb__dots" aria-label="Navigation par image">
+              {images.map((_, i) => (
+                <li key={i}>
+                  <button
+                    className="spec-lb__dot"
+                    onClick={() => setIndex(i)}
+                    aria-label={`Image ${i + 1}`}
+                    aria-current={i === index ? "true" : undefined}
+                    type="button"
+                  />
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════
+   Grille d'images inline
+════════════════════════════════════ */
+function SpecGallery({ images }) {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  if (!images || images.length === 0) return null;
+
+  return (
+    <section className="spec-gallery" aria-labelledby="gallery-heading">
+      <h2 id="gallery-heading" className="spec-detail__h2">
+        <Images size={20} aria-hidden="true" />
+        En images
+      </h2>
+
+      <ul
+        className={`spec-gallery__grid spec-gallery__grid--${Math.min(images.length, 3)}`}
+        aria-label={`${images.length} photo${images.length > 1 ? "s" : ""}`}
+      >
+        {images.map((img, i) => (
+          <li key={i}>
+            <button
+              className="spec-gallery__item"
+              onClick={() => setLightboxIndex(i)}
+              aria-label={`Agrandir : ${img.alt}`}
+              type="button"
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                draggable="false"
+              />
+              {img.caption && (
+                <span className="spec-gallery__item-caption">
+                  {img.caption}
+                </span>
+              )}
+              <span className="spec-gallery__item-hint" aria-hidden="true">
+                <ChevronRight size={14} />
+                Agrandir
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
+    </section>
+  );
+}
+
+/* ════════════════════════════════════
+   Page principale
+════════════════════════════════════ */
 export default function SpecialiteDetailPage() {
   const { id } = useParams();
 
@@ -69,7 +244,9 @@ export default function SpecialiteDetailPage() {
           </div>
 
           <h1 className="spec-detail__title">{spec.nom}</h1>
-          <p className="spec-detail__intro">{spec.description}</p>
+          <p className="spec-detail__intro">
+            {spec.description || spec.resume}
+          </p>
 
           <div className="spec-detail__meta-badges" aria-hidden="true">
             <span className="spec-detail__meta-badge spec-detail__meta-badge--1">
@@ -113,8 +290,24 @@ export default function SpecialiteDetailPage() {
               <h2 id="pourqui-heading" className="spec-detail__h2">
                 Pour qui ?
               </h2>
-              <p className="spec-detail__text">{spec.pourQui}</p>
+              {Array.isArray(spec.pourQui) ? (
+                <ul className="spec-detail__list">
+                  {spec.pourQui.map((item, i) => (
+                    <li key={i}>
+                      <Check size={18} aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="spec-detail__text">{spec.pourQui}</p>
+              )}
             </section>
+
+            {/* ── Galerie photos ── */}
+            {spec.images && spec.images.length > 0 && (
+              <SpecGallery images={spec.images} />
+            )}
 
             <section
               aria-labelledby="bienfaits-heading"

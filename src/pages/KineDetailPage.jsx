@@ -1,4 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
+import { useRef, useEffect } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -26,15 +27,38 @@ const iconMap = {
 };
 
 export default function KineDetailPage() {
-  // ✅ "slug" correspond au paramètre :slug défini dans App.jsx
   const { slug } = useParams();
-
-  // ✅ Recherche par kine.slug (ex: "johan-heggen"), pas par kine.id
+  const specsCardRef = useRef(null);
   const kine = kines.find((k) => k.slug === slug);
 
   if (!kine) return <Navigate to="/equipe" replace />;
 
-  const kineSpecs = specialites.filter((s) => kine.specialites.includes(s.id));
+  // Trouver les spécialités où l'ID du kiné est présent dans kineIds
+  const kineSpecs = specialites.filter(
+    (s) => s.kineIds && Array.isArray(s.kineIds) && s.kineIds.includes(kine.id),
+  );
+
+  // Vérifier si le contenu dépasse pour ajouter la classe de scroll
+  useEffect(() => {
+    const checkScroll = () => {
+      const specsList = specsCardRef.current?.querySelector(
+        ".kine-detail__specs-list",
+      );
+      const card = specsCardRef.current;
+      if (specsList && card) {
+        const hasScroll = specsList.scrollHeight > specsList.clientHeight;
+        if (hasScroll) {
+          card.classList.add("has-scroll");
+        } else {
+          card.classList.remove("has-scroll");
+        }
+      }
+    };
+
+    checkScroll();
+    window.addEventListener("resize", checkScroll);
+    return () => window.removeEventListener("resize", checkScroll);
+  }, [kineSpecs]);
 
   return (
     <article className="kine-detail">
@@ -87,7 +111,7 @@ export default function KineDetailPage() {
                 <span>Formation</span>
               </h2>
               <ol className="kine-detail__formation">
-                {kine.formation.map((f, i) => (
+                {kine.formation?.map((f, i) => (
                   <li key={i}>
                     <span
                       className="kine-detail__formation-dot"
@@ -120,38 +144,44 @@ export default function KineDetailPage() {
           </div>
 
           <aside className="kine-detail__sidebar">
-            <div className="kine-detail__specs-card">
+            <div className="kine-detail__specs-card" ref={specsCardRef}>
               <h3 className="kine-detail__sidebar-title">Spécialités</h3>
-              <ul className="kine-detail__specs-list">
-                {kineSpecs.map((s) => {
-                  const Icon = iconMap[s.icone] || Activity;
-                  return (
-                    <li key={s.id}>
-                      <Link
-                        to={`/specialites/${s.slug}`}
-                        className="kine-detail__spec-item"
-                        aria-label={`En savoir plus sur ${s.nom}`}
-                      >
-                        <div
-                          className="kine-detail__spec-icon"
-                          aria-hidden="true"
+              {kineSpecs.length > 0 ? (
+                <ul className="kine-detail__specs-list">
+                  {kineSpecs.map((s) => {
+                    const Icon = iconMap[s.icone] || Activity;
+                    return (
+                      <li key={s.id}>
+                        <Link
+                          to={`/specialites/${s.slug}`}
+                          className="kine-detail__spec-item"
+                          aria-label={`En savoir plus sur ${s.nom}`}
                         >
-                          <Icon size={20} aria-hidden="true" />
-                        </div>
-                        <div className="kine-detail__spec-info">
-                          <strong>{s.nom}</strong>
-                          <span aria-hidden="true">{s.resume}</span>
-                        </div>
-                        <ArrowRight
-                          size={16}
-                          aria-hidden="true"
-                          className="kine-detail__spec-arrow"
-                        />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+                          <div
+                            className="kine-detail__spec-icon"
+                            aria-hidden="true"
+                          >
+                            <Icon size={20} aria-hidden="true" />
+                          </div>
+                          <div className="kine-detail__spec-info">
+                            <strong>{s.nom}</strong>
+                            <span aria-hidden="true">{s.resume}</span>
+                          </div>
+                          <ArrowRight
+                            size={16}
+                            aria-hidden="true"
+                            className="kine-detail__spec-arrow"
+                          />
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <p className="kine-detail__no-specs">
+                  Aucune spécialité renseignée pour le moment.
+                </p>
+              )}
             </div>
 
             <section
