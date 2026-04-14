@@ -12,6 +12,7 @@ import {
   Wind,
   Shield,
   Baby,
+  Instagram,
 } from "lucide-react";
 import { kines } from "../data/kines.js";
 import { specialites } from "../data/specialites.js";
@@ -66,7 +67,7 @@ export default function KineDetailPage() {
         <div className="kine-detail__top-inner container">
           <Link to="/equipe" className="kine-detail__back">
             <ArrowLeft size={18} aria-hidden="true" />
-            <span>{"Retour à l'équipe"}</span>
+            <span>Retour à l'équipe</span>
           </Link>
 
           <div className="kine-detail__hero">
@@ -82,14 +83,30 @@ export default function KineDetailPage() {
               </h1>
               <p className="kine-detail__titre">{kine.titre}</p>
               <p className="kine-detail__bio-courte">{kine.bioCourte}</p>
-              <a
-                href={`mailto:${kine.email}`}
-                className="kine-detail__email-btn"
-                aria-label={`Envoyer un e-mail à ${kine.prenom} ${kine.nom} : ${kine.email}`}
-              >
-                <Mail size={16} aria-hidden="true" />
-                <span aria-hidden="true">{kine.email}</span>
-              </a>
+
+              <div className="kine-detail__hero-links">
+                <a
+                  href={`mailto:${kine.email}`}
+                  className="kine-detail__email-btn"
+                  aria-label={`Envoyer un e-mail à ${kine.prenom} ${kine.nom} : ${kine.email}`}
+                >
+                  <Mail size={16} aria-hidden="true" />
+                  <span>{kine.email}</span>
+                </a>
+
+                {kine.compteInstagram && (
+                  <a
+                    href={`https://instagram.com/${kine.compteInstagram.replace("@", "")}`}
+                    className="kine-detail__email-btn kine-detail__instagram-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Instagram de ${kine.prenom} : ${kine.compteInstagram}`}
+                  >
+                    <Instagram size={16} aria-hidden="true" />
+                    <span>{kine.compteInstagram}</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -102,7 +119,10 @@ export default function KineDetailPage() {
               <h2 id="parcours-heading" className="kine-detail__h2">
                 Parcours
               </h2>
-              <p className="kine-detail__text">{kine.bioComplete}</p>
+              <div
+                className="kine-detail__text"
+                dangerouslySetInnerHTML={{ __html: kine.bioComplete }}
+              />
             </section>
 
             <section aria-labelledby="formation-heading">

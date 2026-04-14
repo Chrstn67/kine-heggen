@@ -1,8 +1,9 @@
 export const cabinet = {
-  nom: "Cabinet Chez JJ",
-  slogan: "Votre bien-être, notre engagement",
+  nom: "Cabinet de kinésithérapie HEGGEN-HOFFMANN",
+  slogan:
+    "Deux kinésithérapeutes passionnés au service de votre santé et de votre mobilité",
   description:
-    "Le Cabinet Chez JJ vous accueille dans un espace chaleureux et moderne au cœur de Lyon. Nos deux kinésithérapeutes diplômés d'État vous accompagnent avec professionnalisme et bienveillance pour retrouver mobilité, confort et qualité de vie.",
+    "Justine et Johan vous accueillent dans leur cabinet chaleureux au cœur de Boersch. Ce couple de kinésithérapeutes diplômés d'État vous accompagnent avec professionnalisme et bienveillance pour retrouver mobilité, confort et qualité de vie.",
   descriptionCourte:
     "Deux kinésithérapeutes passionnés au service de votre santé et de votre mobilité.",
   adresse: {
@@ -10,21 +11,19 @@ export const cabinet = {
     codePostal: "67530",
     ville: "Boersch",
     complement: "Rez-de-chaussée — Accessible PMR",
+    soins: "Soins au cabinet et à domicile",
   },
   telephone: [
     "03 67 21 29 71",
     "Johan : 07 45 00 88 97",
     "Justine : 07 67 42 92 66",
   ],
-  email: "contact@kine-chez-jj.fr",
+  email: "cabinetJH@orange.fr",
   horaires: [
-    { jour: "Lundi", heures: "8h00 – 19h00" },
-    { jour: "Mardi", heures: "8h00 – 19h00" },
-    { jour: "Mercredi", heures: "9h00 – 18h00" },
-    { jour: "Jeudi", heures: "8h00 – 19h00" },
-    { jour: "Vendredi", heures: "8h00 – 17h00" },
-    { jour: "Samedi", heures: "9h00 – 12h00" },
-    { jour: "Dimanche", heures: "Fermé" },
+    {
+      description:
+        "Le cabinet est ouvert du lundi au vendredi, les horaires sont variables en fonction des heures de visites à domicile.",
+    },
   ],
   valeurs: [
     {
@@ -46,8 +45,7 @@ export const cabinet = {
       icone: "heart",
     },
   ],
-  accessibilite:
-    "Le cabinet est accessible aux personnes à mobilité réduite. Un ascenseur dessert notre étage et les espaces sont adaptés aux fauteuils roulants.",
+  accessibilite: "Le cabinet est accessible aux personnes à mobilité réduite.",
   moyensPaiement: ["Carte bancaire", "Chèque", "Espèces"],
-  conventionné: true,
+  conventionne: true,
 };

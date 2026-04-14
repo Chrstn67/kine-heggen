@@ -1,3 +1,5 @@
+/* ─── Footer.css ─── */
+
 .footer {
   background: var(--color-bg-dark);
   color: var(--color-text-inverse);
@@ -41,7 +43,7 @@
   & .footer__logo-text {
     font-family: var(--font-heading);
     font-size: 18px;
-    font-weight: normal; /* reset <strong> default bold */
+    font-weight: normal;
     color: var(--color-text-inverse);
   }
 
@@ -93,10 +95,19 @@
   }
 
   & .footer__info {
-    font-style: normal; /* reset <address> default italic */
+    font-style: normal;
     display: flex;
     flex-direction: column;
     gap: 14px;
+
+    & ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
     & li {
       display: flex;
@@ -113,7 +124,6 @@
 
       & a {
         transition: color var(--transition);
-
         &:hover {
           color: var(--color-primary);
         }
@@ -121,25 +131,74 @@
     }
   }
 
-  & .footer__horaires {
+  & .footer__phones {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  & .footer__phone-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  /* ── Colonne kinésithérapeutes (groupés) ── */
+  & .footer__kines-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  & .footer__kine-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  & .footer__kine-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-inverse);
+    opacity: 0.9;
+  }
+
+  & .footer__kine-links {
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
 
-    & li {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      gap: 12px;
-    }
+  & .footer__kine-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    opacity: 0.75;
+    text-decoration: none;
+    transition:
+      opacity var(--transition),
+      color var(--transition);
+    word-break: break-all;
 
-    & .footer__jour {
+    & svg {
+      flex-shrink: 0;
       opacity: 0.6;
     }
 
-    & .footer__heures {
-      opacity: 0.9;
-      white-space: nowrap;
+    &:hover {
+      opacity: 1;
+      color: var(--color-primary);
+    }
+  }
+
+  & .footer__kine-link--instagram {
+    &:hover {
+      color: #e1306c;
     }
   }
 
@@ -152,17 +211,16 @@
     opacity: 0.5;
 
     & small {
-      font-size: inherit; /* reset <small> default 0.8em */
+      font-size: inherit;
     }
-
     & p {
-      margin: 0; /* reset <p> default margin */
+      margin: 0;
     }
   }
 
   & .footer__dev-credit {
-    margin: 0; /* reset <figure> default margin: 1em 40px */
-    display: contents; /* transparent en layout, comme un div invisible */
+    margin: 0;
+    display: contents;
   }
 
   & .footer__bottom-left {
@@ -178,14 +236,13 @@
     border-radius: var(--radius-sm);
     opacity: 0.9;
     transition: opacity var(--transition);
-
     &:hover {
       opacity: 1;
     }
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .footer {
     & .footer__grid {
       grid-template-columns: 1fr 1fr;

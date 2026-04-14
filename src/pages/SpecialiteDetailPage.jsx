@@ -249,10 +249,6 @@ export default function SpecialiteDetailPage() {
           </p>
 
           <div className="spec-detail__meta-badges" aria-hidden="true">
-            <span className="spec-detail__meta-badge spec-detail__meta-badge--1">
-              <Check size={12} />
-              Conventionné secteur 1
-            </span>
             <span className="spec-detail__meta-badge spec-detail__meta-badge--2">
               <Users size={12} />
               {kinesList.length > 1

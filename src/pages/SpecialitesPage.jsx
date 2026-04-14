@@ -96,7 +96,7 @@ export default function SpecialitesPage() {
         </h2>
 
         <div className="specialites-page__inner container">
-          {/* ── Bandeau Body Map ── */}
+          {/* ── Bandeau Body Map ──
           <div className="specialites-page__bodymap-banner" data-reveal>
             <div className="specialites-page__bodymap-info">
               <span className="specialites-page__bodymap-eyebrow">
@@ -118,7 +118,7 @@ export default function SpecialitesPage() {
               <span>Ouvrir le Body Map</span>
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
-          </div>
+          </div> */}
 
           {/* ── Filtres praticiens ── */}
           <div className="specialites-search" data-reveal>

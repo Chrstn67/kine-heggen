@@ -61,7 +61,7 @@ const DESCRIPTION = [
   "Nous pratiquons des honoraires conformes aux tarifs conventionnés de la sécurité sociale, établis par la CPAM. Ces tarifs font l'objet d'un remboursement partiel par l'Assurance Maladie, selon les taux indiqués ci-dessous.",
   "Certaines spécialités peuvent appliquer des tarifs différents de ceux listés ici. Consultez la page de la spécialité concernée pour connaître les tarifs qui s'appliquent à votre situation.",
   "Pour tout acte réalisé avec ordonnance — hors ALD et déplacements à domicile — un dépassement de 3 € par séance est appliqué. Ce dépassement n'est pas remboursé par l'Assurance Maladie. Il reflète les investissements continus en formation et spécialisation nécessaires à des soins de qualité, dans un contexte où les tarifs conventionnés ne suivent plus l'évolution du coût de la vie.",
-  "En cas d'empêchement, merci de nous prévenir au minimum 48 h avant l'heure prévue afin que votre créneau puisse être proposé à un autre patient. En cas de non-respect, la séance pourra être comptabilisée.",
+  "En cas d'empêchement, merci de nous prévenir au minimum 48 heures avant l'heure prévue afin que votre créneau puisse être proposé à un autre patient. En cas de non-respect, la séance pourra être comptabilisée.",
 ];
 
 /* ─────────────────────────────────────────────
@@ -167,9 +167,9 @@ export default function TarifsGeneraux() {
               <h3>Annulation de rendez-vous</h3>
               <p>
                 Merci de nous prévenir <strong>le plus tôt possible</strong>{" "}
-                (minimum 48 h avant l'heure prévue) pour tout empêchement. Votre
-                place pourra ainsi être utilisée par un autre patient en attente
-                de soins.
+                (minimum 48 heures avant l'heure prévue) pour tout empêchement.
+                Votre place pourra ainsi être utilisée par un autre patient en
+                attente de soins.
                 <br />
                 <br />
                 <strong>En cas de non-respect</strong>, la séance pourra être

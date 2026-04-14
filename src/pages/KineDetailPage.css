@@ -396,3 +396,19 @@
     }
   }
 }
+& .kine-detail__hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+& .kine-detail__instagram-btn {
+  border-color: rgba(225, 48, 108, 0.3);
+  color: #e1306c !important;
+
+  &:hover {
+    border-color: #e1306c;
+    box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.08);
+  }
+}

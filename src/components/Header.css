@@ -1,4 +1,4 @@
-/* ─── Header.css — avec badge statut cabinet ─── */
+/* ─── Header.css ─── */
 
 .header {
   position: sticky;
@@ -6,45 +6,68 @@
   z-index: 100;
   background: var(--color-bg-alt);
   border-bottom: 1px solid var(--color-border);
-  height: var(--header-height);
 
   & .header__inner {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    gap: 12px;
+    flex-direction: column;
+    gap: 0;
   }
 
+  /* ══ Ligne 1 : logo + badge + tel ══ */
+  & .header__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0 10px;
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  & .header__top-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ── Logo ── */
   & .header__logo {
     display: flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    flex-shrink: 0;
+    min-width: 0; /* permet au texte de se réduire si besoin */
   }
 
   & .header__logo-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
     background: var(--color-primary);
     color: var(--color-text-inverse);
     font-family: var(--font-heading);
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 700;
     border-radius: var(--radius-sm);
+    letter-spacing: 0.04em;
   }
 
   & .header__logo-text {
     font-family: var(--font-heading);
-    font-size: 20px;
-    font-weight: normal;
+    font-size: 18px;
+    font-weight: 600;
     color: var(--color-text);
+    line-height: 1.25;
+    /* Permet le retour à la ligne si le conteneur est trop étroit */
+    white-space: normal;
+    word-break: break-word;
   }
 
-  /* ── Badge statut ouvert / fermé ── */
+  /* ── Badge conventionné ── */
   & .header__status-badge {
     display: inline-flex;
     align-items: center;
@@ -53,59 +76,75 @@
     border-radius: var(--radius-full);
     font-size: 12px;
     font-weight: 600;
+    white-space: nowrap;
     flex-shrink: 0;
-    /* Entrée en douceur au montage */
-    animation: badgeFadeIn 0.6s ease both;
+    animation: badgeFadeIn 0.5s ease both;
   }
 
-  & .header__status-badge--open {
+  & .header__status-badge--conventionne {
     background: color-mix(in srgb, var(--color-primary) 12%, transparent);
     color: var(--color-primary);
     border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
   }
 
-  & .header__status-badge--closed {
-    background: color-mix(in srgb, var(--color-text-light) 10%, transparent);
-    color: var(--color-text-light);
-    border: 1px solid
-      color-mix(in srgb, var(--color-text-light) 20%, transparent);
-  }
-
-  /* Point lumineux */
   & .header__status-dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
     flex-shrink: 0;
-  }
-
-  & .header__status-badge--open .header__status-dot {
     background: var(--color-primary);
-    /* Pulsation uniquement quand ouvert */
-    animation: statusPulse 2.4s ease-in-out infinite;
-  }
-
-  & .header__status-badge--closed .header__status-dot {
-    background: var(--color-text-light);
   }
 
   & .header__status-label {
     line-height: 1;
   }
 
+  /* ── CTA téléphone desktop ── */
+  & .header__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition:
+      background var(--transition),
+      transform var(--transition);
+
+    &:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+    }
+  }
+
+  /* ══ Ligne 2 : nav ══ */
+  & .header__nav {
+    width: 100%;
+  }
+
   & .header__nav-list {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
+    padding: 6px 0;
+    list-style: none;
+    margin: 0;
   }
 
   & .header__nav-link {
     display: block;
-    padding: 8px 16px;
-    font-size: 15px;
+    padding: 6px 14px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--color-text-light);
     border-radius: var(--radius-full);
+    text-decoration: none;
     transition:
       color var(--transition),
       background var(--transition);
@@ -121,55 +160,17 @@
     }
   }
 
-  & .header__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: var(--color-primary);
-    color: var(--color-text-inverse);
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: var(--radius-full);
-    transition:
-      background var(--transition),
-      transform var(--transition);
-    text-decoration: none;
-
-    &:hover {
-      background: var(--color-primary-dark);
-      transform: translateY(-1px);
-    }
-  }
-
-  & .header__cta--desktop {
-    display: inline-flex;
-  }
-
   & .header__nav-item--cta-mobile {
     display: none;
   }
 
+  /* Burger : caché en desktop */
   & .header__burger {
     display: none;
-    padding: 8px;
-    color: var(--color-text);
   }
 }
 
 /* ── Keyframes ── */
-@keyframes statusPulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.45;
-    transform: scale(0.65);
-  }
-}
-
 @keyframes badgeFadeIn {
   from {
     opacity: 0;
@@ -181,33 +182,45 @@
   }
 }
 
-/* ── Responsive ── */
+/* ══ Responsive mobile ══ */
 @media (max-width: 790px) {
   .header {
-    /* Cache le badge sur très petit écran pour économiser l'espace */
+    /* Ligne 1 : on masque le badge, le tel devient visible dans le menu */
     & .header__status-badge {
       display: none;
     }
 
-    & .header__cta--desktop {
+    & .header__cta {
       display: none;
     }
 
+    & .header__top {
+      padding: 10px 0;
+      border-bottom: none;
+    }
+
+    & .header__logo-text {
+      font-size: 15px;
+    }
+
+    /* ── Burger FAB ── */
     & .header__burger {
       display: flex;
       align-items: center;
       justify-content: center;
-      position: fixed; /* ← sort du header */
-      bottom: 24px; /* ← ancré en bas */
-      left: 24px; /* ← ancré à gauche */
-      z-index: 200; /* ← au-dessus de tout */
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 200;
       width: 52px;
       height: 52px;
+      padding: 0;
       background: var(--color-primary);
       color: var(--color-text-inverse);
+      border: none;
       border-radius: 50%;
       box-shadow: var(--shadow-lg);
-      padding: 0;
+      cursor: pointer;
       transition:
         background var(--transition),
         transform var(--transition);
@@ -218,19 +231,21 @@
       }
     }
 
+    /* ── Menu overlay ── */
     & .header__nav-list {
       display: none;
       flex-direction: column;
+      align-items: stretch;
       position: fixed;
-      top: var(--header-height);
+      top: 0;
       left: 0;
       right: 0;
       bottom: 0;
       background: var(--color-bg-alt);
-      padding: 32px 24px;
+      padding: 80px 24px 100px; /* 100px en bas pour ne pas masquer le FAB */
       gap: 4px;
-      align-items: stretch;
       overflow-y: auto;
+      z-index: 150;
 
       &.header__nav-list--open {
         display: flex;
@@ -239,18 +254,21 @@
 
     & .header__nav-link {
       font-size: 18px;
+      font-weight: 500;
       padding: 16px 20px;
       border-radius: var(--radius-md);
     }
 
+    /* ── Numéros de téléphone en bas du menu mobile ── */
     & .header__nav-item--cta-mobile {
       display: block;
-      margin-top: 16px;
+      margin-top: auto;
+      padding-top: 24px;
 
       & .header__mobile-phones {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
         width: 100%;
       }
 
@@ -258,7 +276,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 10px;
         padding: 16px;
         background: var(--color-primary);
         color: var(--color-text-inverse);
@@ -279,11 +297,6 @@
           flex-shrink: 0;
         }
       }
-    }
-
-    & .header__logo-text {
-      font-size: 17px;
-      font-weight: normal;
     }
   }
 }

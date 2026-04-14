@@ -87,9 +87,6 @@
     border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
   }
 
-  & .spec-detail__meta-badge--1 {
-    animation-delay: 0.3s;
-  }
   & .spec-detail__meta-badge--2 {
     animation-delay: 0.42s;
   }

@@ -114,7 +114,6 @@ export default function SectionHero() {
               <MapPin size={13} aria-hidden="true" />
               {cabinet.adresse?.ville ?? "Boersch"}
             </li>
-            <li className="hero__badge hero__badge--sector">Secteur 1</li>
           </ul>
 
           <h1 id="hero-title" className="hero__title">
