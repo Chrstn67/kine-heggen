@@ -90,12 +90,6 @@ export default function SectionHero() {
     <section className="hero" aria-labelledby="hero-title">
       {/* ── Fond ── */}
       <div className="hero__bg" aria-hidden="true">
-        <img
-          src="./images/hero-cabinet.jpg"
-          alt=""
-          loading="eager"
-          fetchPriority="high"
-        />
         <div className="hero__overlay" />
       </div>
 

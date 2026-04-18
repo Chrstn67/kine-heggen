@@ -14,9 +14,6 @@ import { kines } from "../data/kines.js";
 import PageHeader from "../components/PageHeader.jsx";
 import "./MentionsLegales.css";
 
-/* ─────────────────────────────────────────────
-   Données à adapter selon votre situation réelle
-───────────────────────────────────────────────── */
 const HEBERGEUR = {
   nom: "OVHcloud",
   adresse: "2 rue Kellermann - 59100 Roubaix - France",
@@ -30,14 +27,11 @@ const DEVELOPPEUR = {
   siteWeb: "https://www.linkedin.com/in/christian-humbert-developpeur-web/",
 };
 
-/* ─────────────────────────────────────────────
-   Sections de la page
-───────────────────────────────────────────────── */
 const sections = [
   { id: "editeur", label: "Éditeur du site", Icon: FileText },
   { id: "hebergeur", label: "Hébergeur", Icon: Database },
-  { id: "developpeur", label: "Conception & développement", Icon: Shield },
-  { id: "propriete", label: "Propriété intellectuelle", Icon: Scale },
+  { id: "developpeur", label: "Conception", Icon: Shield },
+  { id: "propriete", label: "Propriété", Icon: Scale },
   { id: "donnees", label: "Données personnelles", Icon: Lock },
   { id: "cookies", label: "Cookies", Icon: Eye },
   { id: "responsabilite", label: "Responsabilité", Icon: Shield },
@@ -58,9 +52,12 @@ export default function MentionsLegales() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <main className="mentions" id="main-content">
-      {/* ── Hero — même style que les autres pages ── */}
       <PageHeader
         label="Informations légales"
         title="Mentions légales"
@@ -80,10 +77,14 @@ export default function MentionsLegales() {
             <ol className="mentions__nav-list">
               {sections.map(({ id, label, Icon }) => (
                 <li key={id}>
-                  <a href={`#${id}`} className="mentions__nav-link">
+                  <button
+                    type="button"
+                    onClick={() => scrollTo(id)}
+                    className="mentions__nav-link"
+                  >
                     <Icon size={14} aria-hidden="true" />
                     <span>{label}</span>
-                  </a>
+                  </button>
                 </li>
               ))}
             </ol>
