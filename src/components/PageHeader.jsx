@@ -1,8 +1,13 @@
-// PageHeader.jsx
 import { useState, useEffect, useRef } from "react";
 import "./PageHeader.css";
 
-export default function PageHeader({ label, title, description, teaser }) {
+export default function PageHeader({
+  label,
+  title,
+  description,
+  teaser,
+  meta,
+}) {
   const [open, setOpen] = useState(false);
   const drawerRef = useRef(null);
   const triggerRef = useRef(null);
@@ -64,6 +69,14 @@ export default function PageHeader({ label, title, description, teaser }) {
             )}
           </div>
         )}
+
+        {/* Teaser seul (sans description longue) */}
+        {texts.length === 0 && teaser && (
+          <p className="page-header__desc-preview">{teaser}</p>
+        )}
+
+        {/* Ligne de méta — ex. date de mise à jour */}
+        {meta && <p className="page-header__meta">{meta}</p>}
       </div>
 
       {isLong && (

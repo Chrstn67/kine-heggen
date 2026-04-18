@@ -16,9 +16,7 @@ export default function Footer() {
   const adresse = cabinet.adresse;
   const currentYear = new Date().getFullYear();
 
-  // Organisation des coordonnées par kiné
   const kinesContacts = kines.map((kine) => {
-    // Extraire le numéro du kiné depuis cabinet.telephone
     let phoneNumber = null;
     if (kine.prenom === "Johan") {
       phoneNumber = cabinet.telephone[1].replace("Johan : ", "");
@@ -193,14 +191,25 @@ export default function Footer() {
               </figcaption>
             </figure>
             <small>
-              © {currentYear} Cabinet Chez JJ — Tous droits réservés
+              © {currentYear} Cabinet de kinésithérapie HEGGEN-HOFFMANN — Tous
+              droits réservés
             </small>
           </div>
-          <p>
-            <small>
-              Cabinet conventionné — Carte bancaire, chèque, espèces
-            </small>
-          </p>
+
+          <div className="footer__bottom-right">
+            <p>
+              <small>
+                Cabinet conventionné — Carte bancaire, chèque, espèces
+              </small>
+            </p>
+            <Link
+              to="/mentions-legales"
+              className="footer__legal-link"
+              aria-label="Consulter les mentions légales"
+            >
+              Mentions légales
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

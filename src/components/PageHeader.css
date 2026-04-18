@@ -58,6 +58,14 @@
   opacity: 0.7;
 }
 
+/* Méta — date ou info complémentaire */
+.page-header__meta {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--color-text-light);
+  opacity: 0.55;
+}
+
 /* Overlay */
 .page-header__overlay {
   position: fixed;
@@ -229,15 +237,10 @@
 }
 
 /* ✅ Resets for semantic elements in PageHeader */
-
-/* <header> replacing <div class="page-header"> — no default styles to reset */
-
-/* <p> replacing <span> for .page-header__label */
 .page-header__label {
-  margin: 0; /* reset <p> default margin */
+  margin: 0;
 }
 
-/* <p> replacing <span> for drawer label */
 .page-header__drawer-label {
-  margin: 0; /* reset <p> default margin */
+  margin: 0;
 }

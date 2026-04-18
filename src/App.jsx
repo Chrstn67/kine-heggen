@@ -8,6 +8,7 @@ import KineDetailPage from "./pages/KineDetailPage.jsx";
 import BodyMap from "./pages/BodyMap.jsx";
 import TarifsGeneraux from "./pages/Tarifs.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
+import MentionsLegales from "./pages/Mentionslegales.jsx";
 
 /*
   ℹ️  Vite sert le projet depuis la base "/kine-heggen/" (vite.config.js).
@@ -28,6 +29,8 @@ export default function App() {
         <Route path="/equipe/:slug" element={<KineDetailPage />} />
         <Route path="/body-map" element={<BodyMap />} />
         <Route path="/contact" element={<ContactPage />} />
+
+        <Route path="/mentions-legales" element={<MentionsLegales />} />
 
         {/* Catch-all : toute URL inconnue ramène à l'accueil */}
         <Route path="*" element={<Navigate to="/" replace />} />
