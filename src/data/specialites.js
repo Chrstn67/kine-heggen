@@ -25,6 +25,10 @@ export const specialites = [
       "Relâchements musculaires et tissulaires",
       "Diminution de l’inflammation",
     ],
+    images: [
+      // { src: "/images/specialites/orthopedie-1.jpg", alt: "Rééducation orthopédique" },
+      // { src: "/images/specialites/orthopedie-2.jpg", alt: "Exercices post-opératoires" },
+    ],
     tarif: ["60€ hors convention"],
     kineIds: [1, 2], // Justine et Johan
   },
@@ -81,6 +85,12 @@ export const specialites = [
       "Relaxation",
       "Meilleure qualité de sommeil",
     ],
+    images: [
+      {
+        src: "./images/specialites/image-therapie-manuelle-viscerale.png",
+        alt: "Thérapie manuelle viscérale",
+      },
+    ],
     tarif: ["60€ hors convention"],
     kineIds: [1, 2], // Justine et Johan
   },
@@ -108,6 +118,12 @@ export const specialites = [
       "Meilleur fonctionnement digestif/ du transit",
       "Relaxation",
       "Meilleure qualité de sommeil",
+    ],
+    images: [
+      {
+        src: "./images/specialites/image-TM-cranienne-et-viscerale.png",
+        alt: "Thérapie manuelle viscérale et crânienne",
+      },
     ],
     tarif: ["70€ hors convention"],
     kineIds: [1], // Justine
@@ -140,6 +156,12 @@ export const specialites = [
       "Devenir acteur de sa santé",
       "Travailler sur son terrain et agir en prévention des maladies",
     ],
+    images: [
+      {
+        src: "./images/specialites/schema-bilan-sante-fonctionnelle.png",
+        alt: "Schéma bilan santé fonctionnelle",
+      },
+    ],
     tarif: ["80€ le bilan", "60€ les séances de suivi", "Hors convention"],
     kineIds: [1], // Justine
   },
@@ -161,6 +183,12 @@ export const specialites = [
     bienfaits: [
       "Diminuer vos différents maux naturellement  ",
       "Devenir acteur de sa santé",
+    ],
+    images: [
+      {
+        src: "./images/specialites/image-conseils-en-micronutrition.png",
+        alt: "Conseils en micronutrition",
+      },
     ],
     tarif: ["60€ hors convention"],
     kineIds: [1], // Justine

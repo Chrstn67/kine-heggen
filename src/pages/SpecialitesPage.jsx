@@ -81,7 +81,7 @@ export default function SpecialitesPage() {
           "Nous travaillons essentiellement en manuel en prenant un patient par demi-heure, voire une heure en fonction des besoins.",
           "Nous nous rendons au domicile des patients dans le secteur de Boersch et des villages alentours (Bischoffsheim, Rosheim, Ottrott...).",
           "Nous pratiquons également des séances hors-convention qui font partie de nos spécialités respectives : Le facial-counterstrain pour Johan et la micronutrition pour Justine.",
-          "Nous pratiquons tous les deux la thérapie manuelle vicérale.",
+          "Nous pratiquons tous les deux la thérapie manuelle viscérale.",
           "Au fil des années, nous continuons à nous former et à nous perfectionner.",
         ]}
       />
