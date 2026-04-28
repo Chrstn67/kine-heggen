@@ -256,6 +256,7 @@
   }
 
   & .footer__logo-img {
+    filter: brightness(250%);
     height: 60px;
     width: auto;
     object-fit: contain;
