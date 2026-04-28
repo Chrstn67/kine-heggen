@@ -10,13 +10,6 @@ import TarifsGeneraux from "./pages/Tarifs.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import MentionsLegales from "./pages/Mentionslegales.jsx";
 
-/*
-  ℹ️  Vite sert le projet depuis la base "/kine-heggen/" (vite.config.js).
-      HashRouter gère la navigation côté client après le #.
-      Les routes ne doivent donc PAS répéter "/kine-heggen/" :
-        ✅  http://localhost:5173/kine-heggen/#/equipe/johan-heggen
-        ❌  http://localhost:5173/kine-heggen/#/kine-heggen/equipe/johan-heggen
-*/
 export default function App() {
   return (
     <Routes>

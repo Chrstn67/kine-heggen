@@ -153,20 +153,20 @@ export default function MentionsLegales() {
                 <div className="mentions__dl-row">
                   <dt>Ordre professionnel</dt>
                   <dd>
-                    Conseil National de l'Ordre des Masseurs-Kinésithérapeutes
-                    (CNOMK) —{" "}
+                    Syndicat National des
+                    Masseurs-Kinésithérapeutes-Rééducateurs (SNMKR) —{" "}
                     <a
-                      href="https://www.ordremk.fr"
+                      href="https://www.snmkr.fr"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      ordremk.fr
+                      snmkr.fr
                     </a>
                   </dd>
                 </div>
                 <div className="mentions__dl-row">
                   <dt>Régime conventionnel</dt>
-                  <dd>Cabinet conventionné secteur 1 (Assurance Maladie)</dd>
+                  <dd>Cabinet conventionné (Assurance Maladie)</dd>
                 </div>
               </dl>
             </div>

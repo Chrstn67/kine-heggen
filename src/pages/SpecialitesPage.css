@@ -102,16 +102,16 @@
   }
 
   & .specialites-page__kine-photo {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
   }
 
   & .specialites-page__kine-photo-multi {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--color-bg-alt);

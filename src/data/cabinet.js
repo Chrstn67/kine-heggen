@@ -1,5 +1,7 @@
 export const cabinet = {
-  nom: "Cabinet de kinésithérapie HEGGEN-HOFFMANN",
+  nom: "J2Kiné",
+  accroche: "Cabinet de kinésithérapie HEGGEN-HOFFMANN",
+  photo: "./images/equipe/johan-justine-heggen.jpg",
   slogan:
     "Deux kinésithérapeutes passionnés au service de votre santé et de votre mobilité",
   description:

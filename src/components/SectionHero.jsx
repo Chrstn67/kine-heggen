@@ -1,3 +1,4 @@
+// SectionHero.jsx
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, Award, MapPin } from "lucide-react";
@@ -94,47 +95,69 @@ export default function SectionHero() {
       </div>
 
       <div className="hero__body container">
-        {/* ── Contenu texte ── */}
+        {/* ════════════════════════════
+            CONTENU — 2 colonnes asymétriques
+        ════════════════════════════ */}
         <div className="hero__content">
-          <ul
-            className="hero__badges"
-            aria-label="Informations clés du cabinet"
-          >
-            <li className="hero__badge hero__badge--convention">
-              <Award size={13} aria-hidden="true" />
-              Cabinet conventionné
-            </li>
-            <li className="hero__badge hero__badge--location">
-              <MapPin size={13} aria-hidden="true" />
-              {cabinet.adresse?.ville ?? "Boersch"}
-            </li>
-          </ul>
+          {/* ── Col. gauche : photo + badges + CTA ── */}
+          <aside className="hero__aside">
+            {cabinet.photo && (
+              <div className="hero__team-photo-wrap">
+                <img
+                  src={cabinet.photo}
+                  alt="Johan et Justine Heggen-Hoffmann, kinésithérapeutes"
+                  className="hero__team-photo"
+                  loading="eager"
+                  draggable="false"
+                />
+              </div>
+            )}
 
-          <h1 id="hero-title" className="hero__title">
-            {cabinet.nom}
-          </h1>
-          <p className="hero__subtitle">{cabinet.slogan}</p>
-          <p className="hero__description">{cabinet.description}</p>
-
-          <div className="hero__actions">
-            <Link to="/contact" className="hero__btn hero__btn--primary">
-              <span>Prendre rendez-vous</span>
-              <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-
-            {/* ── Lien téléphone corrigé ── */}
-            <a
-              href={`tel:${cabinet.telephone[0].replace(/\s/g, "")}`}
-              className="hero__btn hero__btn--secondary"
+            <ul
+              className="hero__badges"
+              aria-label="Informations clés du cabinet"
             >
-              <Phone size={18} aria-hidden="true" />
-              <span>{cabinet.telephone[0]}</span>
-            </a>
+              <li className="hero__badge hero__badge--convention">
+                <Award size={12} aria-hidden="true" />
+                Cabinet conventionné
+              </li>
+              <li className="hero__badge hero__badge--location">
+                <MapPin size={12} aria-hidden="true" />
+                {cabinet.adresse?.ville ?? "Boersch"}
+              </li>
+            </ul>
+
+            <div className="hero__actions">
+              <Link to="/contact" className="hero__btn hero__btn--primary">
+                <span>Prendre rendez-vous</span>
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+              <a
+                href={`tel:${cabinet.telephone[0].replace(/\s/g, "")}`}
+                className="hero__btn hero__btn--secondary"
+              >
+                <Phone size={16} aria-hidden="true" />
+                <span>{cabinet.telephone[0]}</span>
+              </a>
+            </div>
+          </aside>
+
+          {/* ── Col. droite : titre + accroche + slogan + description ── */}
+          <div className="hero__text">
+            <h1 id="hero-title" className="hero__title">
+              {cabinet.nom}
+            </h1>
+            {cabinet.accroche && (
+              <p className="hero__accroche">{cabinet.accroche}</p>
+            )}
+            <p className="hero__subtitle">{cabinet.slogan}</p>
+            <hr className="hero__divider" aria-hidden="true" />
+            <p className="hero__description">{cabinet.description}</p>
           </div>
         </div>
 
         {/* ════════════════════════════
-            GALERIE
+            GALERIE (inchangée)
         ════════════════════════════ */}
         <figure
           className="hero__gallery"

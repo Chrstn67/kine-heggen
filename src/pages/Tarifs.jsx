@@ -71,7 +71,7 @@ export default function TarifsGeneraux() {
   return (
     <>
       <PageHeader
-        label="Syndicat National des Masseurs Kinésithérapeutes · Conventionnés"
+        label="Syndicat National des Masseurs-Kinésithérapeutes-Rééeducateurs · Conventionnés"
         title="Tarifs généraux"
         teaser="Retrouvez l'ensemble de nos tarifs conventionnés et informations pratiques."
         description={DESCRIPTION}

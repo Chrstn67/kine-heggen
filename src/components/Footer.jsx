@@ -46,7 +46,11 @@ export default function Footer() {
               aria-label={`Retour à l'accueil — ${cabinet.nom}`}
             >
               <span className="footer__logo-icon" aria-hidden="true">
-                KH
+                <img
+                  src="./images/j2kine-logo.jpeg"
+                  alt="Logo J2Kiné"
+                  loading="lazy"
+                />
               </span>
               <strong className="footer__logo-text">{cabinet.nom}</strong>
             </Link>
@@ -191,8 +195,8 @@ export default function Footer() {
               </figcaption>
             </figure>
             <small>
-              © {currentYear} Cabinet de kinésithérapie HEGGEN-HOFFMANN — Tous
-              droits réservés
+              © {currentYear} J2Kiné - Cabinet de kinésithérapie HEGGEN-HOFFMANN
+              — Tous droits réservés
             </small>
           </div>
 
