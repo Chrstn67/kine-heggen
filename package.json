@@ -1,9 +1,9 @@
 {
-  "name": "kine-heggen",
+  "name": "j2kine",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://chrstn67.github.io/kine-heggen",
+  "homepage": "https://chrstn67.github.io/j2kine",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
