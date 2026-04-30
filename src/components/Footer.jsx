@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { cabinet } from "../data/cabinet.js";
 import { kines } from "../data/kines.js";
-import logo from "/logo-developpeur.jpeg";
+import logo from "/Logo.jpg";
 import "./Footer.css";
 
 export default function Footer() {
