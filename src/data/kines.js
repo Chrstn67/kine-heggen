@@ -3,7 +3,7 @@ export const kines = [
     id: 1,
     slug: "justine-heggen-hoffmann",
     prenom: "Justine",
-    nom: "Heggen Hoffmann",
+    nom: "Heggen-Hoffmann",
     titre: "Kinésithérapeute D.E.",
     photo: "./images/equipe/justine-heggen-hoffmann.jpg",
     bioCourte:
