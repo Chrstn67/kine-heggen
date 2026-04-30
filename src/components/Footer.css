@@ -209,7 +209,7 @@
     align-items: center;
     padding: 24px 0;
     font-size: 13px;
-    opacity: 0.5;
+    /* opacity: 0.5; */
 
     & small {
       font-size: inherit;
@@ -239,7 +239,7 @@
 
     &:hover {
       opacity: 1;
-      color: var(--color-text-inverse);
+      color: var(--color-accent);
       text-decoration-color: var(--color-primary);
     }
   }
@@ -256,7 +256,6 @@
   }
 
   & .footer__logo-img {
-    filter: brightness(250%);
     height: 60px;
     width: auto;
     object-fit: contain;
