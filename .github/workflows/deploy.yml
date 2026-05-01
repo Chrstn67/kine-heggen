@@ -32,5 +32,7 @@ jobs:
             set net:timeout 30;
             set net:max-retries 3;
             open sftp://${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}@ftp.cluster100.hosting.ovh.net:22;
-            mirror -R --delete ./dist/ /www
+            cd www;
+            lcd ./dist;
+            mirror -R --delete . .
           "
