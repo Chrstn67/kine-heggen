@@ -5,7 +5,7 @@ export const cabinet = {
   slogan:
     "Deux kinésithérapeutes passionnés au service de votre santé et de votre mobilité",
   description:
-    "Justine et Johan vous accueillent dans leur cabinet chaleureux au cœur de Boersch. Ce couple de kinésithérapeutes diplômés d'État vous accompagnent avec professionnalisme et bienveillance pour retrouver mobilité, confort et qualité de vie.",
+    "Justine et Johan vous accueillent dans leur cabinet chaleureux au cœur de Boersch. Ce couple de kinésithérapeutes diplômés d'État vous accompagne avec professionnalisme et bienveillance pour retrouver mobilité, confort et qualité de vie.",
   descriptionCourte:
     "Deux kinésithérapeutes passionnés au service de votre santé et de votre mobilité.",
   adresse: {
