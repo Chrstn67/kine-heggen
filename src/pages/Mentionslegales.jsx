@@ -12,7 +12,7 @@ import {
 import { cabinet } from "../data/cabinet.js";
 import { kines } from "../data/kines.js";
 import PageHeader from "../components/PageHeader.jsx";
-import "./MentionsLegales.css";
+import "./Mentionslegales.css";
 
 const HEBERGEUR = {
   nom: "OVHcloud",
