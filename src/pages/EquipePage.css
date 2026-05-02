@@ -1,168 +1,285 @@
 .equipe-page {
   padding: 64px 0 96px;
+}
 
-  & .equipe-page__inner {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+.equipe-page .equipe-page__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.equipe-page .equipe-page__card {
+  display: flex;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+
+.equipe-page .equipe-page__card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Zone photo - amélioration pour éviter le rognage */
+.equipe-page .equipe-page__photo-col {
+  width: 320px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg-tertiary, #f5f5f5);
+}
+
+.equipe-page .equipe-page__photo-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* Aligne sur le haut pour éviter de couper la tête */
+  display: block;
+}
+
+.equipe-page .equipe-page__info-col {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.equipe-page .equipe-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.equipe-page .equipe-page__name {
+  font-size: 28px;
+  color: var(--color-text);
+}
+
+.equipe-page .equipe-page__titre {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.equipe-page .equipe-page__bio {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-light);
+}
+
+.equipe-page .equipe-page__specs-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+  margin-bottom: 10px;
+}
+
+.equipe-page .equipe-page__specs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.equipe-page .equipe-page__tag {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+.equipe-page .equipe-page__tag:hover {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.equipe-page .equipe-page__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.equipe-page .equipe-page__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.equipe-page .equipe-page__btn--primary {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.equipe-page .equipe-page__btn--primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.equipe-page .equipe-page__btn--secondary {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.equipe-page .equipe-page__btn--secondary:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ============================================ */
+/* RESPONSIVE - TABLETTE (768px - 1024px)       */
+/* ============================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .equipe-page {
+    padding: 56px 0 80px;
   }
 
-  & .equipe-page__card {
-    display: flex;
-    background: var(--color-bg-alt);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: box-shadow var(--transition);
-
-    &:hover {
-      box-shadow: var(--shadow-lg);
-    }
+  .equipe-page .equipe-page__card {
+    flex-direction: row; /* Maintient l'affichage côte à côte */
   }
 
-  & .equipe-page__photo-col {
-    width: 320px;
-    flex-shrink: 0;
-
-    & img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  /* Ajustement de la largeur photo pour tablette */
+  .equipe-page .equipe-page__photo-col {
+    width: 280px; /* Légèrement réduit */
   }
 
-  & .equipe-page__info-col {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 1;
+  /* Optimisation object-fit pour tablette */
+  .equipe-page .equipe-page__photo-col img {
+    object-fit: cover;
+    object-position: center 20%; /* Positionne plus haut pour éviter de couper le visage */
   }
 
-  & .equipe-page__header {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  .equipe-page .equipe-page__info-col {
+    padding: 32px;
   }
 
-  & .equipe-page__name {
-    font-size: 28px;
-    color: var(--color-text);
+  .equipe-page .equipe-page__name {
+    font-size: 24px;
   }
 
-  & .equipe-page__titre {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--color-primary);
-    margin: 0; /* reset <p> default margin */
-  }
-
-  & .equipe-page__bio {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--color-text-light);
-  }
-
-  & .equipe-page__specs-label {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-light);
-    margin-bottom: 10px;
-  }
-
-  & .equipe-page__specs-tags {
-    display: flex;
+  .equipe-page .equipe-page__actions {
     flex-wrap: wrap;
-    gap: 8px;
-    list-style: none; /* reset <ul> */
-    padding: 0;
-    margin: 0;
   }
 
-  & .equipe-page__tag {
-    display: inline-block;
-    padding: 6px 14px;
-    background: var(--color-primary-light);
-    color: var(--color-primary);
+  .equipe-page .equipe-page__btn {
+    padding: 10px 20px;
     font-size: 13px;
-    font-weight: 500;
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    transition:
-      background var(--transition),
-      color var(--transition);
-
-    &:hover {
-      background: var(--color-primary);
-      color: var(--color-text-inverse);
-    }
-  }
-
-  & .equipe-page__actions {
-    display: flex;
-    gap: 12px;
-    margin-top: auto;
-  }
-
-  & .equipe-page__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    transition: all var(--transition);
-
-    &.equipe-page__btn--primary {
-      background: var(--color-primary);
-      color: var(--color-text-inverse);
-
-      &:hover {
-        background: var(--color-primary-dark);
-      }
-    }
-
-    &.equipe-page__btn--secondary {
-      background: var(--color-bg);
-      color: var(--color-text);
-      border: 1px solid var(--color-border);
-
-      &:hover {
-        border-color: var(--color-primary);
-        color: var(--color-primary);
-      }
-    }
   }
 }
 
+/* ============================================ */
+/* RESPONSIVE - MOBILE (max 768px)              */
+/* ============================================ */
 @media (max-width: 768px) {
   .equipe-page {
     padding: 48px 0 64px;
+  }
 
-    & .equipe-page__card {
-      flex-direction: column;
-    }
+  .equipe-page .equipe-page__card {
+    flex-direction: column;
+  }
 
-    & .equipe-page__photo-col {
-      width: 100%;
-      height: 280px;
-    }
+  /* Hauteur contrôlée pour éviter le rognage vertical */
+  .equipe-page .equipe-page__photo-col {
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    aspect-ratio: 3 / 4; /* Maintient les proportions */
+  }
 
-    & .equipe-page__info-col {
-      padding: 28px;
-    }
+  .equipe-page .equipe-page__photo-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%; /* Positionne le focus sur le visage */
+  }
 
-    & .equipe-page__actions {
-      flex-direction: column;
-    }
+  .equipe-page .equipe-page__info-col {
+    padding: 28px;
+  }
 
-    & .equipe-page__btn {
-      justify-content: center;
-    }
+  .equipe-page .equipe-page__name {
+    font-size: 24px;
+  }
+
+  .equipe-page .equipe-page__actions {
+    flex-direction: column;
+  }
+
+  .equipe-page .equipe-page__btn {
+    justify-content: center;
+  }
+}
+
+/* ============================================ */
+/* PETIT ÉCRAN / GRANDE TABLETTE (900px)        */
+/* Ajustement supplémentaire pour transitions   */
+/* ============================================ */
+@media (min-width: 900px) and (max-width: 1024px) {
+  .equipe-page .equipe-page__photo-col {
+    width: 300px;
+  }
+
+  .equipe-page .equipe-page__photo-col img {
+    object-position: center 15%;
+  }
+}
+
+/* ============================================ */
+/* PETITES TABLETTES (600px - 768px)            */
+/* ============================================ */
+@media (min-width: 600px) and (max-width: 768px) {
+  .equipe-page .equipe-page__photo-col {
+    max-height: 300px;
+  }
+
+  .equipe-page .equipe-page__photo-col img {
+    object-position: center 15%;
+  }
+}
+
+/* ============================================ */
+/* OPTION : SI L'IMAGE EST TROP HAUTE           */
+/* Fallback pour les très grandes images        */
+/* ============================================ */
+@media (min-width: 769px) {
+  .equipe-page .equipe-page__photo-col {
+    min-height: 320px;
+  }
+
+  .equipe-page .equipe-page__photo-col img {
+    max-height: 100%;
+    object-position: center 15%; /* Position par défaut sur tablette/desktop */
+  }
+}
+
+/* Support pour les écrans très larges */
+@media (min-width: 1440px) {
+  .equipe-page .equipe-page__photo-col {
+    width: 360px;
+  }
+
+  .equipe-page .equipe-page__photo-col img {
+    object-position: center top;
   }
 }

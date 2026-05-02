@@ -47,7 +47,7 @@ export default function Footer() {
             >
               <span className="footer__logo-icon" aria-hidden="true">
                 <img
-                  src="./images/j2kine-logo.jpeg"
+                  src="/images/j2kine-logo.jpeg"
                   alt="Logo J2Kiné"
                   loading="lazy"
                 />

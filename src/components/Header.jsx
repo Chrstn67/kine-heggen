@@ -44,11 +44,7 @@ export default function Header() {
             aria-label={`Accueil — ${cabinet.nom}`}
           >
             <span className="header__logo-icon" aria-hidden="true">
-              <img
-                src="./images/j2kine-logo.jpeg"
-                alt="Logo J2Kiné"
-                loading="lazy"
-              />
+              <img src="/j2kine-logo.jpeg" alt="Logo J2Kiné" loading="lazy" />
             </span>
             <span className="header__logo-text">{cabinet.nom}</span>
           </Link>

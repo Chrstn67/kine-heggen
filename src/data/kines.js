@@ -5,7 +5,7 @@ export const kines = [
     prenom: "Justine",
     nom: "Heggen-Hoffmann",
     titre: "Kinésithérapeute D.E.",
-    photo: "./images/equipe/justine-heggen-hoffmann.jpg",
+    photo: "/images/equipe/justine-heggen-hoffmann.jpg",
     bioCourte:
       "Justine accompagne avec passion ses patients de tout âge et avec diverses pathologies vers une récupération optimale avec douceur et rigueur. Ses formations l'ont menées vers une prise en charge plus globale du patient, avec comme maître mot la prévention",
     bioComplete: `Diplômée de l'IFMK de Strasbourg en 2016, Justine a ensuite effectué des remplacements dans différents cabinets libéraux aux quatre coins de la France avec Johan. Cette expérience leur a permis de découvrir différents types de cabinet avec des approches diverses pour guider leur méthode de pratique.<br><br>Installée dans un cabinet de groupe pendant 7 ans, elle a pris le temps de se former à différentes techniques de thérapie manuelle pour avoir une approche plus globale du corps :<br><br>La thérapie manuelle viscérale, plaçant les viscères comme des zones clés à traiter dans de nombreux syndromes et pathologies inflammatoires.<br><br>La thérapie manuelle « Counsterstrain fascial » basée sur les fascias, pour comprendre et ressentir les interactions entre les différents systèmes (musculo squelettique, artériel, veineux-lymphatique, neuronal …) du corps humain.<br><br>Les conseils en nutrition santé et micronutrition pour guider les personnes pour une meilleure hygiène de vie.<br><br>L'approche en santé fonctionnelle, pour investiguer le terrain et les différentes fonctions du corps et leur responsabilité dans les maux des patients.<br><br>En novembre 2025, elle inaugure avec son mari Johan, leur cabinet conjoint au centre de BOERSCH.`,
@@ -35,7 +35,7 @@ export const kines = [
     prenom: "Johan",
     nom: "Heggen",
     titre: "Kinésithérapeute D.E.",
-    photo: "./images/equipe/johan-heggen.jpg",
+    photo: "/images/equipe/johan-heggen.jpg",
     bioCourte:
       "Johan écoute avec attention les problématiques de ses patients, les traite avec méthodologie et douceur tout en prenant le temps d'expliquer. Une approche globale et individualisée pour chaque patient.",
     bioComplete: `Diplômé de l'IFMK de Strasbourg en 2016, Johan a ensuite effectué des remplacements dans différents cabinets libéraux aux quatre coins de la France avec Justine. Cette expérience leur a permis de découvrir différents types de cabinet avec des approches diverses pour guider leur méthode de pratique. Johan a ensuite exercé pendant 3 ans dans un cabinet libéral à Duppigheim, puis également pendant 3 ans, au sein d'une maison de santé à Krautergersheim.<br><br>Durant ces années, Johan a pris le temps de se former afin de répondre à un besoin de prise en charge plus globale du patient. Cela a amené à deux axes de formation :<br><br>La thérapie manuelle « Fascial Counsterstrain » basée sur les fascias et développée par Bryan Tuckey, pour comprendre et ressentir les interactions entre les différents systèmes (musculo squelettique, artériel, veineux-lymphatique, neuronal …) du corps humain.<br><br>La thérapie manuelle viscérale, plaçant les viscères comme des zones clés à traiter dans de nombreux syndrome et pathologies inflammatoires.<br><br>Depuis novembre 2025, il exerce à BOERSCH, avec Justine, dans leur cabinet.`,
