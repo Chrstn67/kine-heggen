@@ -78,7 +78,7 @@ export default function SpecialitesPage() {
         title="Nos spécialités"
         teaser="Thérapie manuelle, viscérale, soins à domicile… découvrez l'étendue de nos prises en charge."
         description={[
-          "Nous travaillons essentiellement en manuel en prenant un patient par demi-heure, voire une heure en fonction des besoins.",
+          "Nous travaillons essentiellement en manuel en prenant un patient par demi-heure, voire une heure en fonction des besoins. Durant ce temps, nous nous consacrons uniquement à lui.",
           "Nous nous rendons au domicile des patients dans le secteur de Boersch et des villages alentours (Bischoffsheim, Rosheim, Ottrott...).",
           "Nous pratiquons également des séances hors-convention qui font partie de nos spécialités respectives : Le facial-counterstrain pour Johan et la micronutrition pour Justine.",
           "Nous pratiquons tous les deux la thérapie manuelle viscérale.",
