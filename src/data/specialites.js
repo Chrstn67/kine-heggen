@@ -87,7 +87,7 @@ export const specialites = [
     ],
     images: [
       {
-        src: "./images/specialites/image-therapie-manuelle-viscerale.png",
+        src: "/images/specialites/image-therapie-manuelle-viscerale.png",
         alt: "Thérapie manuelle viscérale",
       },
     ],
@@ -121,7 +121,7 @@ export const specialites = [
     ],
     images: [
       {
-        src: "./images/specialites/image-TM-cranienne-et-viscerale.png",
+        src: "/images/specialites/image-TM-cranienne-et-viscerale.png",
         alt: "Thérapie manuelle viscérale et crânienne",
       },
     ],
@@ -158,7 +158,7 @@ export const specialites = [
     ],
     images: [
       {
-        src: "./images/specialites/schema-bilan-sante-fonctionnelle.png",
+        src: "/images/specialites/schema-bilan-sante-fonctionnelle.png",
         alt: "Schéma bilan santé fonctionnelle",
       },
     ],
@@ -186,7 +186,7 @@ export const specialites = [
     ],
     images: [
       {
-        src: "./images/specialites/image-conseils-en-micronutrition.png",
+        src: "/images/specialites/image-conseils-en-micronutrition.png",
         alt: "Conseils en micronutrition",
       },
     ],
